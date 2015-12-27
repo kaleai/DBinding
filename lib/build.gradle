@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+// thanks for http://stackoverflow.com/questions/24662801/bad-class-file-magic-or-version
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    provided 'com.google.android:android:2.1.2'
+}
