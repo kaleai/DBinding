@@ -13,23 +13,17 @@ import java.util.List;
  */
 public class FileHelper {
     
-    private static String root = System.getProperty("user.dir");
-
-    final static String XML_FILE_PATH = root + File.separator
-            + "app" + File.separator
-            + "src" + File.separator
+    final static String XML_FILE_PATH = "src" + File.separator
             + "main" + File.separator
             + "res" + File.separator
             + "layout";
 
-    public static final String CLASS_SAVE_PATH = root + File.separator
-            + "app" + File.separator
-            + "src" + File.separator
+    public static final String CLASS_SAVE_PATH = "src" + File.separator
             + "debug" + File.separator
             + "java" + File.separator;
 
-    public static List<File> loadXmlFiles() {
-        File dir = new File(XML_FILE_PATH);
+    public static List<File> loadXmlFiles(String moduleDir) {
+        File dir = new File(moduleDir + XML_FILE_PATH);
         ArrayList<File> files = new ArrayList<>();
         try {
             listFiles(dir, files, ".xml");
@@ -39,7 +33,8 @@ public class FileHelper {
         return files;
     }
 
-    public static void createFile(String dirName, String fileName, String content) throws IOException {
+    public static void createFile(String moduleDir, String dirName, String fileName, String content) throws IOException {
+        dirName = moduleDir + CLASS_SAVE_PATH + dirName;
         fileName = getUpFieldName(fileName);
         File dir = new File(dirName);
         boolean b = dir.mkdirs();
@@ -50,8 +45,8 @@ public class FileHelper {
         output.close();
     }
 
-    public static void deleteAllFile() {
-        File dir = new File(CLASS_SAVE_PATH);
+    public static void deleteAllFile(String moduleDir) {
+        File dir = new File(moduleDir + CLASS_SAVE_PATH);
         deleteDir(dir);
     }
 

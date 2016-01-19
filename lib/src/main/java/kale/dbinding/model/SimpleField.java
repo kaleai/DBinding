@@ -6,14 +6,13 @@ package kale.dbinding.model;
  */
 public class SimpleField {
     
-    public Class<?> type;
+    public String type;
 
     public String name;
 
-    public SimpleField(Class<?> type, String name) {
-
+    public SimpleField(String type, String name) {
         if (type == null) {
-            type = Object.class;
+            type = Object.class.getCanonicalName();
         }
         this.type = type;
         this.name = name;

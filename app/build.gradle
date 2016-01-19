@@ -1,8 +1,6 @@
-import org.apache.commons.lang3.JavaVersion
-
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-apply plugin: 'com.android.databinding'
+//apply plugin: 'com.android.databinding'
 
 
 android {
@@ -32,9 +30,9 @@ android {
         incremental true
     }
 
-    /*dataBinding {
+    dataBinding {
         enabled = true
-    }*/
+    }
 
 }
 
@@ -44,7 +42,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     provided 'org.projectlombok:lombok:1.12.6'
     apt "org.projectlombok:lombok:1.12.6"
-    compile (project(':dbindinglib')){
-        exclude group: "com.android", module: "databinding"
-    }
+    compile 'io.reactivex:rxjava:1.0.17'
+    compile project(':dbindinglib')
+    compile 'com.jakewharton:butterknife:7.0.1'
+
+    compile 'com.android.support:gridlayout-v7:23.1.1'
 }

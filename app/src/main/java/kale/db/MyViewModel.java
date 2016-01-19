@@ -1,33 +1,48 @@
 package kale.db;
 
-
-import org.kale.TestViewData;
-import org.kale.TestViewData02;
+import org.kale.vd.OtherViewData;
+import org.kale.vd.UserViewData;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+
+import rx.Observable;
 
 /**
  * @author Kale
  * @date 2015/12/24
- * 
- *  * vm是不会被复用的，所以vm中可以做很多和业务相关的代码逻辑，通过viewData进行回调，一个vm会有多个vd，vd对vm不知情
-
  */
 public class MyViewModel {
 
-    private TestViewData mViewData01;
-    private TestViewData02 mViewData02;
+    private final OtherViewData mOtherViewData;
 
-    public MyViewModel(TestViewData viewData01, TestViewData02 viewData02) {
-        mViewData01 = viewData01;
-        mViewData02 = viewData02;
-        mViewData02.setBtnText("btnText"); // default text
+    private UserViewData mUserViewData;
+
+    public MyViewModel(UserViewData userViewData,OtherViewData otherViewData) {
+        mUserViewData = userViewData;
+        mOtherViewData = otherViewData;
     }
 
-    public void refreshUI(Context context) {
-        mViewData01.setData("data from vm");
-        mViewData01.setPkgName(context.getPackageName());
-        mViewData02.setBtnText("start new activity");
+    /**
+     * 这个当然可以放在构造方法中进行，但因为这里有一个回调，所以独立出来了一个方法。
+     */
+    public Observable<Boolean> init(Context context) {
+        mUserViewData.setPic(BitmapFactory.decodeResource(context.getResources(),R.drawable.kale));
+        mUserViewData.setName("kale");
+        mOtherViewData.setSomeThing("someThing");
+        //mOtherViewData.setViz(View.VISIBLE);
+        return Observable.just(true);
+    }
+
+    public String getPackageName(Context context) {
+        return context.getPackageName();
+    }
+
+    public static void main(String[] args) {
+        UserViewData userViewData = new UserViewData();
+        OtherViewData otherViewData = new OtherViewData();
+        MyViewModel model = new MyViewModel(userViewData, otherViewData);
+        //System.out.println(otherViewData.getViz() == View.VISIBLE ? "可见" : "不可见");
     }
 
 }

@@ -11,7 +11,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
-import kale.dbinding.MyClass;
 import kale.dbinding.annotation.BindLayout;
 
 /**
@@ -34,7 +33,7 @@ public class Layout2ViewData extends AbstractProcessor {
 
                     if (isFirst) {
                         isFirst = false;
-                        MyClass.main(null);
+                        //MyClass.main(null);
                     }
                 }
             }

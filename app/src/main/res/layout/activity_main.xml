@@ -5,65 +5,53 @@
 
     <data>
         <!-- 定义变量: var i -->
-        <!-- Like : private org.kale.TestViewData vd-->
+
+        <import type="android.view.View" />
+
         <variable
-            name="vd"
-            type="org.kale.TestViewData"
+            name="user"
+            ignore="true"
+            type="org.kale.vd.UserViewData"
             />
 
-        <!-- Like: private org.kale.TestViewData vd02-->
         <variable
-            name="vd02"
-            type="org.kale.TestViewData02"
+            name="other"
+            type="org.kale.vd.OtherViewData"
             />
 
     </data>
 
-    <RelativeLayout
-        android:id="@+id/root_rl"
+    <LinearLayout
+        android:id="@+id/nihao"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
         tools:context="kale.db.MainActivity"
         >
 
-        <!-- Like: vd.getData()-->
+        <TextView
+            android:id="@+id/user_info_tv"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#e2e5ea"
+            android:drawableLeft="@{user.name}"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@{user.name , default = ddd}"
+            android:textSize="30sp"
+            tools:drawableLeft="@drawable/kale"
+            />
 
         <TextView
-            android:id="@+id/data_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#ff0000"
-            android:text="@{vd.data , default = data}"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:text="@{other.someThing , default=other}"
+            android:textSize="50sp"
+            android:visibility="@{other.someThing == `someThing` ? View.VISIBLE : View.GONE}"
             />
 
-        <TextView
-            android:id="@+id/package_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@{vd.pkgName , default = pkgName}"
-            />
 
-        <Button
-            android:id="@+id/packageName_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/package_name_tv"
-            android:layout_centerHorizontal="true"
-            android:text="@{vd02.btnText , default = Preview}"
-            />
-
-        <Button
-            android:id="@+id/data_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="data"
-            />
-
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

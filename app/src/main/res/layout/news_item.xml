@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <!-- 本例中为了防止复用item出现的状态出错的问题，
+        可以在xml中编写针对数据源进行状态的变换代码。-->
+
+        <!-- 
+        适配器的item对数据源做的相应都是更新数据，同时也会改变view的可见性（gone）
+        这种需求应在写xml文件的时候就应该考虑到，比如title如果是gone，content应该自动顶上去。
+        这样的逻辑本身就是xml编写的逻辑，所以在这里做view的可视性操作是没问题的。
+        
+        看需求：
+        如果有title字段就显示title，如果没，那么就把title这个view消失content顶上去。
+        走数据的思路。
+        有title字段，viewData就应该有title。
+        消失的逻辑和数据无关和view有关，而这个view又是通过viewData定义的
+        -->
+        <import type="android.view.View" />
+
+        <variable
+            name="news"
+            type="org.kale.vd.NewsViewData"
+            />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@{news.pic}"
+            tools:src="@drawable/kale"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textSize="25sp"
+                android:text="@{news.title}"
+                tools:text="title"
+                />
+
+            <!-- layout_below 这个就是布局的逻辑，如果title是gone，那么这个自然就会顶上去-->
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:maxLines="2"
+                android:text="@{news.content}"
+                tools:text="content"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

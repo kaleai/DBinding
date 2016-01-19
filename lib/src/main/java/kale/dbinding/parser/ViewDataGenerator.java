@@ -14,6 +14,9 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
 
+import kale.dbinding.model.SimpleClass;
+import kale.dbinding.model.SimpleField;
+
 /**
  * @author Kale
  * @date 2015/12/25
@@ -25,28 +28,32 @@ public class ViewDataGenerator {
     /**
      * [class full name, class]
      */
-    private final Map<String, kale.dbinding.model.SimpleClass> mClassesMap = new HashMap<>();
+    private final Map<String, SimpleClass> mClassesMap = new HashMap<>();
 
-    public ViewDataGenerator() {
+    private final Map<String, String> mAttrFieldMap;
+
+    public ViewDataGenerator(Map<String, String> attrFieldMap) {
+        mAttrFieldMap = attrFieldMap;
     }
 
-    public List<kale.dbinding.model.SimpleClass> generateClasses(List<File> xmlFiles) {
+    public List<SimpleClass> generateClasses(List<File> xmlFiles) {
         for (File file : xmlFiles) {
-            generateOneClass(file);
+            generateOneLayout(file);
         }
-        List<kale.dbinding.model.SimpleClass> list = new ArrayList<>();
-        for (Map.Entry<String, kale.dbinding.model.SimpleClass> entry : mClassesMap.entrySet()) {
+
+        List<SimpleClass> list = new ArrayList<>();
+        for (Map.Entry<String, SimpleClass> entry : mClassesMap.entrySet()) {
             list.add(entry.getValue());
         }
         return list;
     }
 
-    private void generateOneClass(File xmlFile) {
+    private void generateOneLayout(File xmlFile) {
         XMLInputFactory inputFactory = XMLInputFactory.newInstance();
         try {
             FileReader reader = new FileReader(xmlFile);
             XMLStreamReader xmlReader = inputFactory.createXMLStreamReader(reader);
-            List<kale.dbinding.model.SimpleClass> currentClasses = new ArrayList<>();
+            List<SimpleClass> currentClasses = new ArrayList<>();
 
             while (xmlReader.hasNext()) {
                 Integer eventType = xmlReader.next();
@@ -74,44 +81,45 @@ public class ViewDataGenerator {
         }
     }
 
-    private void initClassName(XMLStreamReader xmlReader, List<kale.dbinding.model.SimpleClass> classes) {
-        kale.dbinding.model.SimpleClass cls;
-        if (xmlReader.getAttributeLocalName(0).equals("name")
-                || xmlReader.getAttributeLocalName(0).equals("type")) {
+    private void initClassName(XMLStreamReader xmlReader, List<SimpleClass> classes) {
+        final String fullClsName = xmlReader.getAttributeValue(null, "type").trim();
+        SimpleClass cls = mClassesMap.get(fullClsName);
+        if (cls == null) {
+            cls = new SimpleClass(fullClsName);
+            mClassesMap.put(fullClsName, cls);
+        }
+        cls.clsVarName = xmlReader.getAttributeValue(null, "name").trim();
 
-            final String fullClsName = xmlReader.getAttributeValue(null, "type").trim();
-            if ((cls = mClassesMap.get(fullClsName)) == null) {
-                cls = new kale.dbinding.model.SimpleClass(fullClsName);
-                mClassesMap.put(fullClsName, cls);
-            }
-            cls.clsVarName = xmlReader.getAttributeValue(null, "name").trim();
+        if (!classes.contains(cls)) {
             classes.add(cls);
+        } else {
+            System.err.println("error");
         }
     }
 
-    private void initClassFields(XMLStreamReader xmlReader, List<kale.dbinding.model.SimpleClass> classes) {
+    private void initClassFields(XMLStreamReader xmlReader, List<SimpleClass> currentClasses) {
         // Views
         //System.out.println("======name = " + xmlReader.getName());
         QName attrName;
         String attrValue;
         for (int i = 0; i < xmlReader.getAttributeCount(); i++) {
             attrName = xmlReader.getAttributeName(i);
-            if (attrName.getPrefix().equals("tools")) {
+            if (!attrName.getPrefix().equals("android") && !attrName.getPrefix().equals("bind")) {
                 continue;
             }
 
-            // @{viewData.text default "31"}
+            // @{viewData.text , default "31"}
             attrValue = xmlReader.getAttributeValue(i).trim();
             if (attrValue.startsWith("@{") && attrValue.endsWith("}")) {
-                for (kale.dbinding.model.SimpleClass cls : classes) {
+                for (SimpleClass cls : currentClasses) {
                     String clsName = cls.clsVarName + "."; // viewData.
-                    String content = attrValue.substring(2).split("}")[0].trim(); // viewData.text default "31"
+                    String content = attrValue.substring(2).split("}")[0].trim(); // viewData.text , default "31"
                     int index = content.indexOf(clsName);
                     if (index != -1) {
                         String fieldName = content.substring(index + clsName.length()).split(" ")[0];
 
                         if (!hasThisField(cls, fieldName)) {
-                            cls.fields.add(new kale.dbinding.model.SimpleField(CodeTemple.FIELD_TYPE.get(attrName.getLocalPart()), fieldName));
+                            cls.fields.add(new SimpleField(mAttrFieldMap.get(attrName.getLocalPart()), fieldName));
                         }
                     }
                 }
@@ -120,29 +128,36 @@ public class ViewDataGenerator {
         }
     }
 
-
-    private List<kale.dbinding.model.SimpleClass> initClassContent(List<kale.dbinding.model.SimpleClass> classes) {
+    private void initClassContent(List<SimpleClass> currentClasses) {
         final StringBuilder sb = new StringBuilder();
-        for (kale.dbinding.model.SimpleClass cls : classes) {
-            for (kale.dbinding.model.SimpleField field : cls.fields) {
+        for (SimpleClass cls : currentClasses) {
+            for (SimpleField field : cls.fields) {
                 sb.append(CodeTemple.FIELD_TEMPLE
-                        .replaceAll(CodeTemple.TYPE, field.type.getCanonicalName())
+                        .replaceAll(CodeTemple.TYPE, field.type)
                         .replaceAll(CodeTemple.UP_FIELD, getUpLetterName(field.name))
                         .replaceAll(CodeTemple.FIELD, field.name));
             }
             cls.content = String.format(CodeTemple.CLASS_TEMPLE,
-                    cls.packageName, getUpLetterName(cls.simpleName), sb.toString());
+                    cls.packageName, 
+                    getUpLetterName(cls.simpleName),
+                    getUpLetterName(cls.simpleName), sb.toString());
             sb.delete(0, sb.length());
         }
-        return classes;
+    }
+
+    public static String capitalize(final String word) {
+        if (word.length() > 1) {
+            return String.valueOf(word.charAt(0)).toUpperCase() + word.substring(1);
+        }
+        return word;
     }
 
     private static String getUpLetterName(String fieldName) {
         return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
     }
 
-    private boolean hasThisField(kale.dbinding.model.SimpleClass cls, String fieldName) {
-        for (kale.dbinding.model.SimpleField field : cls.fields) {
+    private boolean hasThisField(SimpleClass cls, String fieldName) {
+        for (SimpleField field : cls.fields) {
             if (field.name.equals(fieldName)) {
                 return true;
             }
