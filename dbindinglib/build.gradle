@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -13,12 +12,6 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
 
     dataBinding {
         enabled = true
@@ -26,15 +19,5 @@ android {
 }
 
 dependencies {
-    //compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:support-annotations:23.1.1'
-
-    /*   
-       compile 'com.android.databinding:baseLibrary:1.0-rc4'
-       compile 'com.android.databinding:compiler:1.0-rc4'*/
-    
-    /* compile 'com.android.support:support-annotations:23.1.1'
-     compile 'com.android.databinding:baseLibrary:1.0-rc5'
-     compile 'com.android.databinding:compiler:1.0-rc5'
-     compile 'com.android.databinding:compilerCommon:1.0-rc5'*/
+    provided 'com.android.support:support-annotations:23.1.1'
 }

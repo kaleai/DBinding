@@ -38,13 +38,16 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    compile project(':dbindinglib')
+
     compile 'com.android.support:appcompat-v7:23.1.1'
+    testCompile 'junit:junit:4.12'
+    
     provided 'org.projectlombok:lombok:1.12.6'
     apt "org.projectlombok:lombok:1.12.6"
+    
     compile 'io.reactivex:rxjava:1.0.17'
-    compile project(':dbindinglib')
     compile 'com.jakewharton:butterknife:7.0.1'
 
-    compile 'com.android.support:gridlayout-v7:23.1.1'
+    compile 'com.github.tianzhijiexian:CommonAdapter:1.1.5'
 }

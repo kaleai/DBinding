@@ -1,1 +1,1 @@
-include ':app', ':lib', ':dbindinglib'
+include ':app', ':lib', ':dbindinglib', ':dbindingtest'

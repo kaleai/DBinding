@@ -6,11 +6,8 @@
     <data>
         <!-- 定义变量: var i -->
 
-        <import type="android.view.View" />
-
         <variable
             name="user"
-            ignore="true"
             type="org.kale.vd.UserViewData"
             />
 
@@ -19,39 +16,53 @@
             type="org.kale.vd.OtherViewData"
             />
 
+        <variable
+            name="ignore"
+            ignore="true"
+            type="kale.db.ignore.IgnoreViewData"
+            />
+
+
     </data>
 
     <LinearLayout
-        android:id="@+id/nihao"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="kale.db.MainActivity"
         >
 
-        <TextView
-            android:id="@+id/user_info_tv"
+        <LinearLayout
+            android:id="@+id/user_info_ll"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#e2e5ea"
-            android:drawableLeft="@{user.name}"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="@{user.name , default = ddd}"
-            android:textSize="30sp"
-            tools:drawableLeft="@drawable/kale"
-            />
+            >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="60dp"
-            android:text="@{other.someThing , default=other}"
-            android:textSize="50sp"
-            android:visibility="@{other.someThing == `someThing` ? View.VISIBLE : View.GONE}"
-            />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@{user.pic , default= @drawable/saber}"
+                />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#e2e5ea"
+                android:drawablePadding="10dp"
+                android:drawableRight="@{user.right}"
+                android:gravity="center"
+                android:text="@{user.name , default = saber}"
+                android:textSize="30sp"
+                />
+
+        </LinearLayout>
+        
+        <ListView
+            android:id="@+id/main_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
     </LinearLayout>
 </layout>

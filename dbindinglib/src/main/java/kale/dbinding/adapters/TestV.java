@@ -4,7 +4,6 @@ import android.databinding.Bindable;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
 
-import kale.dbinding.BR;
 import kale.dbinding.BaseViewData;
 
 /**
@@ -17,7 +16,7 @@ public class TestV extends BaseViewData {
 
     public final void setText(CharSequence text) {
         setTextAndAddListener(this.text, text);
-        notifyPropertyChanged(BR.text);
+        //notifyPropertyChanged(BR.text);
     }
     @Bindable public final CharSequence getText() {return this.text.get();}
 
@@ -28,7 +27,7 @@ public class TestV extends BaseViewData {
             c.addOnPropertyChangedCallback(new OnPropertyChangedCallback() {
                 @Override
                 public void onPropertyChanged(Observable sender, int propertyId) {
-                    notifyPropertyChanged(BR.text);
+                   // notifyPropertyChanged(BR.text);
                 }
             });
         } else {

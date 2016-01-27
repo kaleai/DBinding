@@ -1,7 +1,6 @@
 package kale.dbinding.adapters;
 
 import android.databinding.BindingAdapter;
-import android.databinding.adapters.TextViewBindingAdapter;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,9 +11,9 @@ import kale.dbinding.util.BitmapUtil;
 /**
  * @author Kale
  * @date 2016/1/5
- * {@link TextView}
+ * {@link android.databinding.adapters.TextViewBindingAdapter}
  */
-public class TextViewAttrAdapter extends TextViewBindingAdapter{
+public class TextViewAttrAdapter{
 
     @BindingAdapter("android:drawableTop")
     public static void setDrawableTop(TextView view, Bitmap bitmap) {
@@ -35,13 +34,13 @@ public class TextViewAttrAdapter extends TextViewBindingAdapter{
     }
     
     @BindingAdapter("android:drawableRight")
-    public static void setDrawableRight(TextView view, Bitmap bitmap) {
+    public static void setdrawableRight(TextView view, Bitmap bitmap) {
         view.setCompoundDrawablesWithIntrinsicBounds(null, null,
                 BitmapUtil.bitmap2Drawable(view.getResources(), bitmap), null);
     }
 
     @BindingAdapter("bind:smartText")
-    public static void setTextAndChangeVisible(TextView view, CharSequence text) {
+    public static void setSmartText(TextView view, CharSequence text) {
         if (!TextUtils.isEmpty(text)) {
             view.setText(text);
             if (view.getVisibility() != View.VISIBLE) {

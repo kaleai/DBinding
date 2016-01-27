@@ -14,8 +14,10 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
 
+import kale.dbinding.CodeTemple;
 import kale.dbinding.model.SimpleClass;
 import kale.dbinding.model.SimpleField;
+import kale.dbinding.util.LetterUtil;
 
 /**
  * @author Kale
@@ -28,27 +30,21 @@ public class ViewDataGenerator {
     /**
      * [class full name, class]
      */
-    private final Map<String, SimpleClass> mClassesMap = new HashMap<>();
+    private final Map<String, SimpleClass> mViewDataMap = new HashMap<>();
 
-    private final Map<String, String> mAttrFieldMap;
-
-    public ViewDataGenerator(Map<String, String> attrFieldMap) {
-        mAttrFieldMap = attrFieldMap;
-    }
-
-    public List<SimpleClass> generateClasses(List<File> xmlFiles) {
+    public List<SimpleClass> generateAllViewData(List<File> xmlFiles) {
         for (File file : xmlFiles) {
-            generateOneLayout(file);
+            genViewDataFromLayout(file);
         }
 
         List<SimpleClass> list = new ArrayList<>();
-        for (Map.Entry<String, SimpleClass> entry : mClassesMap.entrySet()) {
+        for (Map.Entry<String, SimpleClass> entry : mViewDataMap.entrySet()) {
             list.add(entry.getValue());
         }
         return list;
     }
 
-    private void generateOneLayout(File xmlFile) {
+    private void genViewDataFromLayout(File xmlFile) {
         XMLInputFactory inputFactory = XMLInputFactory.newInstance();
         try {
             FileReader reader = new FileReader(xmlFile);
@@ -65,6 +61,10 @@ public class ViewDataGenerator {
                         }
 
                         if (qName.toString().equals("variable")) {
+                            String ignore = xmlReader.getAttributeValue(null, "ignore");
+                            if (ignore != null && ignore.equals("true")) {
+                                continue;
+                            }
                             initClassName(xmlReader, currentClasses);
                         } else {
                             initClassFields(xmlReader, currentClasses);
@@ -83,17 +83,15 @@ public class ViewDataGenerator {
 
     private void initClassName(XMLStreamReader xmlReader, List<SimpleClass> classes) {
         final String fullClsName = xmlReader.getAttributeValue(null, "type").trim();
-        SimpleClass cls = mClassesMap.get(fullClsName);
+        SimpleClass cls = mViewDataMap.get(fullClsName);
         if (cls == null) {
             cls = new SimpleClass(fullClsName);
-            mClassesMap.put(fullClsName, cls);
+            mViewDataMap.put(fullClsName, cls);
         }
         cls.clsVarName = xmlReader.getAttributeValue(null, "name").trim();
 
         if (!classes.contains(cls)) {
             classes.add(cls);
-        } else {
-            System.err.println("error");
         }
     }
 
@@ -108,23 +106,23 @@ public class ViewDataGenerator {
                 continue;
             }
 
-            // @{viewData.text , default "31"}
+            // Example: @{viewData.text , default "31"}
             attrValue = xmlReader.getAttributeValue(i).trim();
             if (attrValue.startsWith("@{") && attrValue.endsWith("}")) {
                 for (SimpleClass cls : currentClasses) {
-                    String clsName = cls.clsVarName + "."; // viewData.
-                    String content = attrValue.substring(2).split("}")[0].trim(); // viewData.text , default "31"
+                    String clsName = cls.clsVarName + "."; // Result: viewData.
+                    String content = attrValue.substring(2).split("}")[0].trim(); // Result: viewData.text , default "31"
                     int index = content.indexOf(clsName);
                     if (index != -1) {
                         String fieldName = content.substring(index + clsName.length()).split(" ")[0];
 
                         if (!hasThisField(cls, fieldName)) {
-                            cls.fields.add(new SimpleField(mAttrFieldMap.get(attrName.getLocalPart()), fieldName));
+                            String value = TypeFinder.findTypeByAttrName(attrName.getLocalPart());
+                            cls.fields.add(new SimpleField(value, fieldName));
                         }
                     }
                 }
             }
-            //System.out.println("attr = " + attrName.getLocalPart() + " attrValue = " + attrValue);
         }
     }
 
@@ -134,26 +132,14 @@ public class ViewDataGenerator {
             for (SimpleField field : cls.fields) {
                 sb.append(CodeTemple.FIELD_TEMPLE
                         .replaceAll(CodeTemple.TYPE, field.type)
-                        .replaceAll(CodeTemple.UP_FIELD, getUpLetterName(field.name))
+                        .replaceAll(CodeTemple.UP_FIELD, LetterUtil.getUpperLetter(field.name))
                         .replaceAll(CodeTemple.FIELD, field.name));
             }
             cls.content = String.format(CodeTemple.CLASS_TEMPLE,
-                    cls.packageName, 
-                    getUpLetterName(cls.simpleName),
-                    getUpLetterName(cls.simpleName), sb.toString());
+                    cls.packageName,
+                    LetterUtil.getUpperLetter(cls.simpleName), sb.toString());
             sb.delete(0, sb.length());
         }
-    }
-
-    public static String capitalize(final String word) {
-        if (word.length() > 1) {
-            return String.valueOf(word.charAt(0)).toUpperCase() + word.substring(1);
-        }
-        return word;
-    }
-
-    private static String getUpLetterName(String fieldName) {
-        return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
     }
 
     private boolean hasThisField(SimpleClass cls, String fieldName) {

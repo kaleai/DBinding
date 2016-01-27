@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 
+        Attribute for original view.
+        Example: android:text="name"
+    -->
+
+    <string name="text">java.lang.CharSequence</string>
+
+    <!-- 
+        Custom view in your own project. 
+        Example: bind:customAttr="name"
+    -->
+
+    <string name="customAttr">java.lang.CharSequence</string>
+    <string name="drawableRight">android.graphics.Bitmap</string>
+    
+    
+</resources>
