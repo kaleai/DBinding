@@ -7,7 +7,7 @@
 
         <variable
             name="news"
-            type="org.kale.vd.NewsViewData"
+            type="viewdata.NewsViewData"
             />
     </data>
 

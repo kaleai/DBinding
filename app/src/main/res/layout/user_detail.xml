@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="org.kale.vd.UserViewData"
+            type="viewdata.UserViewData"
             />
         
     </data>

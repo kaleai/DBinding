@@ -8,18 +8,18 @@
 
         <variable
             name="user"
-            type="org.kale.vd.UserViewData"
+            type="viewdata.UserViewData"
             />
 
         <variable
             name="other"
-            type="org.kale.vd.OtherViewData"
+            type="viewdata.OtherViewData"
             />
 
         <variable
             name="ignore"
             ignore="true"
-            type="kale.db.ignore.IgnoreViewData"
+            type="viewdata.IgnoreViewData"
             />
 
 

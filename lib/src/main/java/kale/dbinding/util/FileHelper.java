@@ -26,9 +26,8 @@ public class FileHelper {
             + "layout";
 
     private static final String CLASS_SAVED_PATH = "src" + File.separator
-            + "debug" + File.separator
+            + "main" + File.separator
             + "java" + File.separator;
-
     
     public static File loadConfigFile(String moduleDir) {
         File file = new File(moduleDir + CONFIG_FILE_PATH + File.separator, "dbinding_config.xml");

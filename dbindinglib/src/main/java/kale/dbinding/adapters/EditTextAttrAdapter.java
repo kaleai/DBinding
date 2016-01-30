@@ -31,12 +31,12 @@ public class EditTextAttrAdapter {
 
     }
 
-    @BindingAdapter("bind:onBeforeChanged")
+    @BindingAdapter("app:onBeforeChanged")
     public static void beforeChanged(EditText view, final ObservableField<CharSequence> text) {
         changed(view, text, BEFORE_CHANGED);
     }
 
-    @BindingAdapter("bind:text")
+    @BindingAdapter("app:text01")
     public static void setText(EditText view, final ObservableField<CharSequence> text) {
         changed(view, text, AFTER_CHANGED);
     }
