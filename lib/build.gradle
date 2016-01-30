@@ -10,6 +10,6 @@ configurations {
 }
 
 dependencies {
-    provided 'com.google.android:android:2.1.2'
-    compile 'com.google.android:support-v4:r7'
+    //provided 'com.google.android:android:2.1.2'
+    //provided 'com.google.android:support-v4:r7'
 }

@@ -21,7 +21,7 @@ import kale.dbinding.util.FileHelper;
 public class GenViewData {
 
     public static void generateViewData(String moduleDir) {
-        FileHelper.deleteAllFile(moduleDir);
+        //FileHelper.deleteAllFile(moduleDir);
         // load config
         File config = FileHelper.loadConfigFile(moduleDir);
         TypeFinder.setCustomAttrConfig(getAttrConfig(config));
@@ -82,7 +82,6 @@ public class GenViewData {
         }
         return attrValueMap;
     }
-    
     
 
     ///////////////////////////////////////////////////////////////////////////

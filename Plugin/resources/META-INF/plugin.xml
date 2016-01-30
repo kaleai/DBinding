@@ -1,0 +1,48 @@
+<idea-plugin version="2">
+    <id>com.your.company.unique.plugin.id</id>
+    <name>Plugin display name here</name>
+    <version>1.0</version>
+    <vendor email="developer_kale@foxmail.com" url="http://weibo.com/shark0017">kale</vendor>
+
+    <description><![CDATA[
+      Enter short description for your plugin here.<br>
+      <em>most HTML tags may be used</em>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="141.0" />
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <!-- <action id="ReadCurrentFile" class="kale.dbinding.plugin.ReadCurrentFile" text="ReadCurrentFile" description="加载当前文件">
+           <add-to-group group-id="WindowMenu" anchor="first" />
+           <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt P" second-keystroke="shift ctrl alt P" />
+         </action>-->
+        <action id="generate_viewdata" class="kale.dbinding.plugin.ViewDataGenerator" text="生成ViewData" description="通过解析layout文件来自动生成ViewData">
+            <add-to-group group-id="WindowMenu" anchor="first" />
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G" />
+        </action>
+    </actions>
+
+    <project-components>
+        <component>
+            <implementation-class>kale.dbinding.plugin.MyComponent</implementation-class>
+        </component>
+    </project-components>
+</idea-plugin>

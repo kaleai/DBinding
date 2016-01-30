@@ -8,3 +8,5 @@
 /captures
 .idea/
 app/src/debug
+*.class
+Plugin/out/

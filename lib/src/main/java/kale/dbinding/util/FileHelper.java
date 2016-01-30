@@ -74,7 +74,7 @@ public class FileHelper {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 遍历指定目录及子目录下的文件
+     * Traverse the specified file directory and subdirectories
      */
     public static void getListFiles(File file, List<File> collector, String extension) throws IOException {
         if (file.isFile() && !extension.isEmpty() && file.getName().endsWith(extension)) {
@@ -91,9 +91,7 @@ public class FileHelper {
     }
 
     /**
-     * 删除这个模块下，保存viewData的文件夹下的所有文件
-     *
-     * @param moduleDir 当前工程的模块名字
+     * delete all viewData in your module
      */
     public static void deleteAllFile(String moduleDir) {
         File dir = new File(moduleDir + CLASS_SAVED_PATH);
@@ -101,10 +99,9 @@ public class FileHelper {
     }
 
     /**
-     * 删除整个目录和目录下的所有文件
+     * Delete all files in the directory
      *
-     * @param dir 目录名
-     * @return 是否删除成功
+     * @param dir file dir
      */
     private static boolean deleteDir(File dir) {
         if (dir.isDirectory()) {
