@@ -1,6 +1,9 @@
 package kale.dbinding.parser;
 
 import android.graphics.Bitmap;
+import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.RecyclerView;
+import android.widget.ListAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,8 +45,17 @@ public class TypeFinder {
             case "drawableLeft":
                 type = Bitmap.class.getCanonicalName();
                 break;
+            case "listAdapter":
+                type = ListAdapter.class.getCanonicalName();
+                break;
+            case "pagerAdapter":
+                type = PagerAdapter.class.getCanonicalName();
+                break;
+            case "rcvAdapter":
+                type = RecyclerView.Adapter.class.getCanonicalName();
+                break;
             default:
-                //System.err.println(name + " 未支持的类型");
+                // not support
                 type = Object.class.getCanonicalName();
         }
         return type;

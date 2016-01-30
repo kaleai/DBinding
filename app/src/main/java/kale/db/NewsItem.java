@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import kale.adapter.item.BaseAdapterItem;
 import kale.db.databinding.NewsItemBinding;
+import kale.db.model.NewsInfo;
 import kale.dbinding.DBinding;
 
 /**
@@ -52,7 +53,7 @@ public class NewsItem extends BaseAdapterItem<NewsInfo> {
     }
 
     /**
-     * 默写数据改变后ui会做一些改变。
+     * 数据改变后ui会做一些改变。
      * 应该利用对vd的字段监听的方式做处理，不应该在数据改变时，通过开发者做ui层面的更新。
      *
      * @param bind 为什么不是单一监听器，而是观察者模式？

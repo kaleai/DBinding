@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public abstract class BaseViewData extends BaseObservable {
     
-    private static ViewDataManager mManager = ViewDataManager.getInstance();
+    private static ViewDataStorage mManager = ViewDataStorage.getInstance();
 
     /**
      * convert index to String
@@ -23,7 +23,7 @@ public abstract class BaseViewData extends BaseObservable {
 
     /**
      * Find ViewData By String
-     * @return ViewData from {@link ViewDataManager}
+     * @return ViewData from {@link ViewDataStorage}
      */
     public static 
     @Nullable

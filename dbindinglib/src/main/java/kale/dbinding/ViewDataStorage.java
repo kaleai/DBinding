@@ -11,7 +11,7 @@ import java.util.List;
  * @author Kale
  * @date 2016/1/22
  */
-class ViewDataManager {
+class ViewDataStorage {
 
     /**
      * 调用的类，类中的vd
@@ -19,16 +19,16 @@ class ViewDataManager {
      */
     private final List<BaseViewData> mDataList = new ArrayList<>();
 
-    private static ViewDataManager instance;
+    private static ViewDataStorage instance;
 
-    public static ViewDataManager getInstance() {
+    public static ViewDataStorage getInstance() {
         if (instance == null) {
-            instance = new ViewDataManager();
+            instance = new ViewDataStorage();
         }
         return instance;
     }
 
-    private ViewDataManager() {
+    private ViewDataStorage() {
         
     }
 

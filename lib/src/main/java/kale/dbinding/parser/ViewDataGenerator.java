@@ -102,7 +102,7 @@ public class ViewDataGenerator {
         String attrValue;
         for (int i = 0; i < xmlReader.getAttributeCount(); i++) {
             attrName = xmlReader.getAttributeName(i);
-            if (!attrName.getPrefix().equals("android") && !attrName.getPrefix().equals("bind")) {
+            if (!attrName.getPrefix().equals("android") && !attrName.getPrefix().equals("app")) {
                 continue;
             }
 

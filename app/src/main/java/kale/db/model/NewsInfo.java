@@ -1,4 +1,4 @@
-package kale.db;
+package kale.db.model;
 
 /**
  * @author Kale

@@ -17,6 +17,8 @@ import kale.dbinding.DBinding;
 /**
  * @author Kale
  * @date 2015/12/26
+ * 
+ * 这里因为需求很简单，所以就没做viewModel
  */
 public class UserDetailActivity extends AppCompatActivity {
 
