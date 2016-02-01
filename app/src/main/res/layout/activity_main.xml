@@ -19,9 +19,8 @@
         <variable
             name="ignore"
             ignore="true"
-            type="viewdata.IgnoreViewData"
+            type="kale.db.ignore.IgnoreViewData"
             />
-
 
     </data>
 

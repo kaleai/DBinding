@@ -39,7 +39,7 @@ public class TextViewAttrAdapter{
                 BitmapUtil.bitmap2Drawable(view.getResources(), bitmap), null);
     }
 
-    @BindingAdapter("bind:smartText")
+    @BindingAdapter("app:smartText")
     public static void setSmartText(TextView view, CharSequence text) {
         if (!TextUtils.isEmpty(text)) {
             view.setText(text);

@@ -1,7 +1,5 @@
 package kale.db;
 
-import org.kale.vd.NewsViewData;
-
 import android.app.Activity;
 import android.databinding.Observable;
 import android.graphics.BitmapFactory;
@@ -13,6 +11,7 @@ import kale.adapter.item.BaseAdapterItem;
 import kale.db.databinding.NewsItemBinding;
 import kale.db.model.NewsInfo;
 import kale.dbinding.DBinding;
+import viewdata.NewsViewData;
 
 /**
  * @author Kale

@@ -18,8 +18,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import kale.dbinding.GenViewData;
-
 /**
  * @author Kale
  * @date 2015/12/28
@@ -34,7 +32,6 @@ public class ReadCurrentFile extends AnAction {
 
         System.out.println("========>"+System.getProperty("user.dir"));
 
-        GenViewData.main(null);
         
         Application application = ApplicationManager.getApplication();
 

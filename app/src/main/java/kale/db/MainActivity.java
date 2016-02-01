@@ -1,7 +1,5 @@
 package kale.db;
 
-import org.kale.vd.OtherViewData;
-import org.kale.vd.UserViewData;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +9,8 @@ import android.widget.Toast;
 
 import kale.db.databinding.ActivityMainBinding;
 import kale.dbinding.DBinding;
+import viewdata.OtherViewData;
+import viewdata.UserViewData;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,8 +1,5 @@
 package kale.db;
 
-import org.kale.vd.OtherViewData;
-import org.kale.vd.UserViewData;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -14,6 +11,8 @@ import kale.adapter.IAdapter;
 import kale.adapter.item.AdapterItem;
 import kale.adapter.recyclerview.CommonRcvAdapter;
 import kale.db.model.NewsInfo;
+import viewdata.OtherViewData;
+import viewdata.UserViewData;
 
 /**
  * @author Kale

@@ -1,7 +1,5 @@
 package kale.db;
 
-import org.kale.vd.NewsViewData;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +9,7 @@ import android.view.View;
 
 import kale.db.databinding.NewsDetailBinding;
 import kale.dbinding.DBinding;
+import viewdata.NewsViewData;
 
 /**
  * @author Kale

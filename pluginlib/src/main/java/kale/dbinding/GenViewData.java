@@ -21,42 +21,40 @@ import kale.dbinding.util.FileHelper;
 public class GenViewData {
 
     public static void generateViewData(String moduleDir) {
-        //FileHelper.deleteAllFile(moduleDir);
-        // load config
+        // FileHelper.deleteAllFile(moduleDir);
+        // 1.load config
         File config = FileHelper.loadConfigFile(moduleDir);
         TypeFinder.setCustomAttrConfig(getAttrConfig(config));
-        
-        // load all layout files
+
+        // 2.load all layout files
         List<File> files = FileHelper.loadLayoutFiles(moduleDir);
         System.out.println("layout file size = " + files.size());
-        
-        // get classes which will be create
+
+        // 3.get classes which will be create
         List<SimpleClass> classes = new ViewDataGenerator().generateAllViewData(files);
 
         final StringBuilder dir = new StringBuilder();
         for (SimpleClass cls : classes) {
-            // First:kale.view.data -> kale/view/data (file dir)
+            // kale.view.data -> kale/view/data (file dir)
             final String[] packageNames = cls.packageName.split("\\.");
             for (String name : packageNames) {
                 dir.append(name).append(File.separator);
             }
-            
-            // Second:create one class
+
             try {
                 FileHelper.createViewDataFile(moduleDir, dir.toString(), cls.simpleName, cls.content);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            
-            // Final clear StringBuilder
+
             dir.delete(0, dir.length()); // clear StringBuilder
         }
     }
 
     /**
      * Parse xml file to Map<String, String>
-     *     xml: <string name="text">java.lang.CharSequence</string>
-     *     map: [text : java.lang.CharSequence]
+     * xml: <string name="text">java.lang.CharSequence</string>
+     * map: [text : java.lang.CharSequence]
      */
     public static Map<String, String> getAttrConfig(File xmlFile) {
         Map<String, String> attrValueMap = new HashMap<>();
@@ -82,21 +80,5 @@ public class GenViewData {
         }
         return attrValueMap;
     }
-    
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Just For Test
-    ///////////////////////////////////////////////////////////////////////////
-
-    private static final String ROOT = System.getProperty("user.dir");
-
-    public static void main(String[] args) {
-        System.out.println("=========== start ===========");
-        long start = System.currentTimeMillis();
-        String moduleDir = ROOT + File.separator + "app" + File.separator;
-
-        generateViewData(moduleDir);
-
-        System.out.println("========== end =========== " + (System.currentTimeMillis() - start));
-    }
 }

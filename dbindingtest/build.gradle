@@ -27,6 +27,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
     testCompile 'junit:junit:4.12'
-    provided project(':lib')
+    provided project(':pluginlib')
     compile project(':dbindinglib')
 }

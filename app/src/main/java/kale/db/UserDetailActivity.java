@@ -1,7 +1,5 @@
 package kale.db;
 
-import org.kale.vd.UserViewData;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -13,6 +11,7 @@ import android.view.View;
 import kale.db.databinding.UserDetailBinding;
 import kale.dbinding.BaseViewData;
 import kale.dbinding.DBinding;
+import viewdata.UserViewData;
 
 /**
  * @author Kale

@@ -10,6 +10,7 @@ configurations {
 }
 
 dependencies {
+    // 如果引入了android包，插件会自动剔除它的，所以对于android中的类，我专门写了空类。
     //provided 'com.google.android:android:2.1.2'
     //provided 'com.google.android:support-v4:r7'
 }
