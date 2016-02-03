@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import kale.adapter.item.BaseAdapterItem;
-import kale.db.databinding.NewsItemBinding;
+import kale.db.databinding.GameItemBinding;
 import kale.db.model.NewsInfo;
 import kale.dbinding.DBinding;
-import viewdata.NewsViewData;
+import viewdata.GameViewData;
 
 /**
  * @author Kale
@@ -19,18 +19,18 @@ import viewdata.NewsViewData;
  *
  * 这里需要viewData，它可以方便的让你实现点击item进入后更新了阅读数，这个item也需要被更新
  */
-public class NewsItem extends BaseAdapterItem<NewsInfo> {
+public class GameItem extends BaseAdapterItem<NewsInfo> {
 
     @Override
     public int getLayoutResId() {
-        return R.layout.news_item;
+        return R.layout.game_item;
     }
 
-    NewsItemBinding mBind;
-    NewsViewData mViewData = new NewsViewData();
+    GameItemBinding mBind;
+    GameViewData mViewData = new GameViewData();
     Activity mActivity;
 
-    public NewsItem(Activity activity) {
+    public GameItem(Activity activity) {
         mActivity = activity;
     }
 
@@ -46,7 +46,7 @@ public class NewsItem extends BaseAdapterItem<NewsInfo> {
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.startActivity(NewsDetailActivity.withIntent(mActivity, mViewData));           
+                mActivity.startActivity(GameDetailActivity.withIntent(mActivity, mViewData));           
             }
         });
     }
@@ -58,15 +58,21 @@ public class NewsItem extends BaseAdapterItem<NewsInfo> {
      * @param bind 为什么不是单一监听器，而是观察者模式？
      *             因为多个页面会有对同一个数据的监听操作，如果是单一的那么就没办法实现这个功能。
      */
-    public void notifyData(final NewsItemBinding bind) {
+    public void notifyData(final GameItemBinding bind) {
         mViewData.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                NewsViewData viewData = (NewsViewData) sender;
+                GameViewData viewData = (GameViewData) sender;
                 if (propertyId == kale.db.BR.title) {
-                    setSmartText(bind.title, viewData.getTitle());
+                    setSmartText(bind.titleTv, viewData.getTitle());
                 } else if (propertyId == BR.isLikeText) {
-                    setSmartText(bind.isLikeText, viewData.getIsLikeText());
+                    final int color;
+                    if (mViewData.getIsLikeText().equals(GameDetailActivity.LIKED)) {
+                        color = R.color.yellow;
+                    } else {
+                        color = R.color.gray;
+                    }
+                    bind.isLikeText.setTextColor(bind.getRoot().getResources().getColor(color));
                 }
             }
         });
@@ -96,6 +102,7 @@ public class NewsItem extends BaseAdapterItem<NewsInfo> {
     public void handleData(NewsInfo data, int pos) {
         mViewData.setPic(BitmapFactory.decodeResource(root.getResources(), data.picResIdArr[0]));
         mViewData.setTitle(data.title);
+        mViewData.setIcon(BitmapFactory.decodeResource(root.getResources(), data.picResIdArr[1]));
         mViewData.setIsLikeText(data.isLikeText);
     }
 

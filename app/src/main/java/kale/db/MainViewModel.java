@@ -23,10 +23,10 @@ public class MainViewModel {
     private final OtherViewData mOtherViewData;
 
     private UserViewData mUserViewData;
-    
+
     private IAdapter<NewsInfo> mAdapter;
-    
-    public MainViewModel(UserViewData userViewData,OtherViewData otherViewData) {
+
+    public MainViewModel(UserViewData userViewData, OtherViewData otherViewData) {
         mUserViewData = userViewData;
         mOtherViewData = otherViewData;
     }
@@ -35,9 +35,9 @@ public class MainViewModel {
      * 这个当然可以放在构造方法中进行，我这里为了说明view层调用vm的方法，强制加入了一个回调。
      */
     public boolean init(final Activity activity) {
-        mUserViewData.setPic(BitmapFactory.decodeResource(activity.getResources(),R.drawable.mingren));
-        mUserViewData.setName("漩涡鸣人");
-        
+        mUserViewData.setPic(BitmapFactory.decodeResource(activity.getResources(), R.drawable.speed_icon));
+        mUserViewData.setName("Need for Speed");
+
         return true;
     }
 
@@ -47,7 +47,7 @@ public class MainViewModel {
             @NonNull
             @Override
             public AdapterItem<NewsInfo> createItem(Object o) {
-                return new NewsItem(activity);
+                return new GameItem(activity);
             }
         };
         mAdapter = adapter;
@@ -60,11 +60,11 @@ public class MainViewModel {
 
     public void loadData() {
         ArrayList<NewsInfo> list = new ArrayList<>();
-        list.add(new NewsInfo("Saber", "点个赞吧", new int[]{R.drawable.saber}));
-        list.add(new NewsInfo("地狱少女", "点个赞吧", new int[]{R.drawable.dysn}));
-        list.add(new NewsInfo("初音未来", "点个赞吧", new int[]{R.drawable.chuyin}));
-        list.add(new NewsInfo("凉宫", "点个赞吧", new int[]{R.drawable.lianggong}));
-        list.add(new NewsInfo("古河渚", "点个赞吧", new int[]{R.drawable.ghz}));
+        list.add(new NewsInfo("Hitman 47", "Like", new int[]{R.drawable.hit_man, R.drawable.hit_man_icon}));
+        list.add(new NewsInfo("Assassins Creed", "Like", new int[]{R.drawable.assassin_s_creed,
+                R.drawable.assassin_s_creed_icon}));
+        list.add(new NewsInfo("StarCraft Ⅱ", "Like", new int[]{R.drawable.star_craft,R.drawable.star_craft_icon}));
+        list.add(new NewsInfo("Watch Dogs", "Like", new int[]{R.drawable.watch_dogs, R.drawable.watch_dogs_icon}));
         mAdapter.setData(list);
         ((CommonRcvAdapter) mAdapter).notifyDataSetChanged();
     }

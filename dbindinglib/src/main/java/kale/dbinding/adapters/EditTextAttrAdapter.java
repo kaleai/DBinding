@@ -83,5 +83,5 @@ public class EditTextAttrAdapter {
             text.set(s.toString());
         }
     }
-    
+
 }

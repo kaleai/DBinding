@@ -14,8 +14,6 @@ import kale.dbinding.annotation.Visibility;
  * @author Kale
  * @date 2016/1/20
  *
- * 一个属性可能支持多个不同类型的参数，比如：src支持drawable，bitmap，drawableId。
- * 但这里只提供一种最常用，最合适的参数。对src来说就是bitmap。其余的属性也参考同样的思路。
  */
 public class TypeFinder {
 

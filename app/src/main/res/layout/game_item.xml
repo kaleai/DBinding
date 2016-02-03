@@ -7,40 +7,46 @@
     <data>
 
         <variable
-            name="news"
-            type="viewdata.NewsViewData"
+            name="game"
+            type="viewdata.GameViewData"
             />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         >
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="fitXY"
-            android:src="@{news.pic}"
-            tools:src="@drawable/kale"
+            android:id="@+id/pic_iv"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:scaleType="fitStart"
+            android:layout_centerVertical="true"
+            android:src="@{game.icon , default = @drawable/hit_man_icon}"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="left"
+            android:layout_marginLeft="120dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             >
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{news.title}"
-                android:textSize="25sp"
+                android:text="@{game.title}"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 tools:text="title"
                 />
 
@@ -49,14 +55,15 @@
                 android:id="@+id/isLikeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="10dp"
                 android:maxLines="2"
-                android:text="@{news.isLikeText}"
+                android:text="@{game.isLikeText}"
+                android:textColor="@color/gray"
                 tools:text="isLikeText"
                 />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

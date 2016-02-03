@@ -19,49 +19,29 @@
         <variable
             name="ignore"
             ignore="true"
-            type="kale.db.ignore.IgnoreViewData"
+            type="viewdata.ignored.IgnoreViewData"
             />
 
     </data>
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="kale.db.MainActivity"
         >
-
-        <LinearLayout
-            android:id="@+id/user_info_ll"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            >
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@{user.pic , default= @drawable/saber}"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#e2e5ea"
-                android:drawablePadding="10dp"
-                android:drawableRight="@{user.right}"
-                android:gravity="center"
-                android:text="@{user.name , default = saber}"
-                android:textSize="30sp"
-                />
-
-        </LinearLayout>
+        
+        <include
+            android:id="@+id/userInfo_include"
+            layout="@layout/header_layout"
+            app:user="@{user}"
+            />
         
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/news_item"
+            tools:listitem="@layout/game_item"
             />
 
     </LinearLayout>

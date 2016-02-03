@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="game"
+            type="viewdata.GameViewData"
+            />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@{game.pic , default=@drawable/hit_man}"
+            android:contentDescription="main pic"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:drawableLeft="@{game.icon , default=@drawable/hit_man_icon}"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="@{game.title}"
+                android:textColor="#171717"
+                android:textSize="30sp"
+                tools:text="hit man"
+                />
+
+            <Button
+                android:id="@+id/like_btn"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="#000000"
+                android:textColor="@color/white"
+                android:text="@{game.isLikeText , default = like}"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

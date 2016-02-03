@@ -2,14 +2,7 @@ package viewdata;
 import android.databinding.Bindable;
 import kale.dbinding.BaseViewData;
 import com.android.databinding.library.baseAdapters.BR;
-public class NewsViewData extends BaseViewData {
-
-    private java.lang.CharSequence title;
-    public final void setTitle(java.lang.CharSequence title) {
-        this.title = title;
-        notifyPropertyChanged(BR.title);
-    }
-    @Bindable public final java.lang.CharSequence getTitle() {return this.title;}
+public class GameViewData extends BaseViewData {
 
     private android.graphics.Bitmap pic;
     public final void setPic(android.graphics.Bitmap pic) {
@@ -17,6 +10,20 @@ public class NewsViewData extends BaseViewData {
         notifyPropertyChanged(BR.pic);
     }
     @Bindable public final android.graphics.Bitmap getPic() {return this.pic;}
+
+    private android.graphics.Bitmap icon;
+    public final void setIcon(android.graphics.Bitmap icon) {
+        this.icon = icon;
+        notifyPropertyChanged(BR.icon);
+    }
+    @Bindable public final android.graphics.Bitmap getIcon() {return this.icon;}
+
+    private java.lang.CharSequence title;
+    public final void setTitle(java.lang.CharSequence title) {
+        this.title = title;
+        notifyPropertyChanged(BR.title);
+    }
+    @Bindable public final java.lang.CharSequence getTitle() {return this.title;}
 
     private java.lang.CharSequence isLikeText;
     public final void setIsLikeText(java.lang.CharSequence isLikeText) {

@@ -28,7 +28,6 @@ public class GenViewData {
 
         // 2.load all layout files
         List<File> files = FileHelper.loadLayoutFiles(moduleDir);
-        System.out.println("layout file size = " + files.size());
 
         // 3.get classes which will be create
         List<SimpleClass> classes = new ViewDataGenerator().generateAllViewData(files);

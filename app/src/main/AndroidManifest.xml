@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserDetailActivity" />
-        <activity android:name=".NewsDetailActivity" />
+        <activity android:name=".GameDetailActivity" 
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

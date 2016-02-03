@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="user"
+            type="viewdata.UserViewData"
+            />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/header"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cover_transparent"
+            />
+
+        <ImageView
+            android:id="@+id/head_pic_iv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@{user.pic , default= @drawable/speed_icon}"
+            />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/head_pic_iv"
+            android:layout_toRightOf="@+id/head_pic_iv"
+            android:drawablePadding="10dp"
+            android:drawableRight="@{user.right}"
+            android:gravity="center"
+            android:text="@{user.name , default = Speed}"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            />
+
+
+    </RelativeLayout>
+</layout>

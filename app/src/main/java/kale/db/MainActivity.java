@@ -1,6 +1,5 @@
 package kale.db;
 
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         bindViews();
         setViews();
         doTransaction();
+        
     }
 
     ActivityMainBinding b;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setViews() {
         DBinding.setVariables(b, mUserViewData, mOtherViewData);// 不要求放入的顺序
-        b.userInfoLl.setOnClickListener(new View.OnClickListener() {
+        b.userInfoInclude.headPicIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(UserDetailActivity.withIntent(MainActivity.this, mUserViewData));

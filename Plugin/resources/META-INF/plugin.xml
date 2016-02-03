@@ -24,25 +24,16 @@
     <depends>com.intellij.modules.lang</depends>
     -->
 
-    <extensions defaultExtensionNs="com.intellij">
-
-    </extensions>
+    <extensions defaultExtensionNs="com.intellij" />
 
     <actions>
         <!-- Add your actions here -->
-        <!-- <action id="ReadCurrentFile" class="kale.dbinding.plugin.ReadCurrentFile" text="ReadCurrentFile" description="加载当前文件">
-           <add-to-group group-id="WindowMenu" anchor="first" />
-           <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt P" second-keystroke="shift ctrl alt P" />
-         </action>-->
-        <action id="generate_viewdata" class="kale.dbinding.plugin.ViewDataGenerator" text="生成ViewData" description="通过解析layout文件来自动生成ViewData">
+        <action id="generate_viewdata" class="kale.dbinding.plugin.ViewDataGenerator" text="Generate ViewData"
+            description="通过解析layout文件来自动生成ViewData">
             <add-to-group group-id="WindowMenu" anchor="first" />
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G" />
         </action>
     </actions>
 
-    <project-components>
-        <component>
-            <implementation-class>kale.dbinding.plugin.MyComponent</implementation-class>
-        </component>
-    </project-components>
+    <project-components />
 </idea-plugin>

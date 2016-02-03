@@ -1,9 +1,7 @@
 package viewdata; 
-import com.android.databinding.library.baseAdapters.BR;
-
 import android.databinding.Bindable;
-
 import kale.dbinding.BaseViewData;
+import com.android.databinding.library.baseAdapters.BR;
 public class UserViewData extends BaseViewData {
 
     private android.graphics.Bitmap pic;

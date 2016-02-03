@@ -68,6 +68,7 @@ public class TypeTest {
                 CheckedTextViewBindingAdapter.class,
                 ChronometerBindingAdapter.class,
                 CompoundButtonBindingAdapter.class,
+                //Converters.class,
                 ExpandableListViewBindingAdapter.class,
                 FrameLayoutBindingAdapter.class,
                 ImageViewBindingAdapter.class,
@@ -95,6 +96,7 @@ public class TypeTest {
                 ViewStubBindingAdapter.class,
                 ZoomControlsBindingAdapter.class,
 
+                ________下面是自定义的适配器________.class,
                 // custom adapter
                 EditTextAttrAdapter.class,
                 ImageViewAttrAdapter.class,
@@ -127,8 +129,8 @@ public class TypeTest {
                          *如果{@link TypeFinder}已经处理过,这里就不做判定，否属于没有做处理的情况。
                          */
                         if (got.equals(Object.class.getCanonicalName())) {
-                            System.err.println("匹配失败 方法：" + method.getName()
-                                    + "，期望类型：" + expected + "，实际类型：" + got);
+                            System.err.println("匹配失败的方法：" + method.getName()
+                                    + "，期望的是：" + expected + "，实际却是：" + got);
                         } else {
                             System.out.println("忽略的重载方法" + method.getName());
                         }
@@ -136,7 +138,7 @@ public class TypeTest {
                         System.out.println("匹配成功：" + got);
                     }
                 } else {
-                    System.out.println("忽略的方法" + method.getName());
+                    System.out.println("忽略的方法：" + method.getName());
                 }
             }
         }

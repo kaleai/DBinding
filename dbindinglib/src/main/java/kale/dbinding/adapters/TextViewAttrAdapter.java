@@ -34,15 +34,19 @@ public class TextViewAttrAdapter{
     }
     
     @BindingAdapter("android:drawableRight")
-    public static void setdrawableRight(TextView view, Bitmap bitmap) {
+    public static void setDrawableRight(TextView view, Bitmap bitmap) {
         view.setCompoundDrawablesWithIntrinsicBounds(null, null,
                 BitmapUtil.bitmap2Drawable(view.getResources(), bitmap), null);
     }
 
+    /**
+     * 虽然这个属性，在view中没有，但是通过这样的方式是可以直接被绑定的。只不过会有个警告
+     */
     @BindingAdapter("app:smartText")
     public static void setSmartText(TextView view, CharSequence text) {
         if (!TextUtils.isEmpty(text)) {
             view.setText(text);
+            view.setBackgroundColor(0xffff0000);
             if (view.getVisibility() != View.VISIBLE) {
                 view.setVisibility(View.VISIBLE);
             }
