@@ -97,6 +97,9 @@ public class GameItem extends BaseAdapterItem<NewsInfo> {
      * 将viewData和model的数据进行同步
      * model模型可能很复杂，但viewData的模型很简单，这里就是做二者的转换。
      * 转换的步骤不可少，不能把model直接写成viewData
+     * 
+     * 在adapter的item中更新数据一定要记得if后面要跟上else，否则会因为item的复用而造成显示的问题。
+     * 但如果通过这样的写法，塞数据的过程和ui更新的过程是完全分开的，可以有效的降低因人为遗忘造成的数据状态未更新的问题
      */
     @Override
     public void handleData(NewsInfo data, int pos) {

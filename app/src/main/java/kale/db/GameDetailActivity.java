@@ -47,7 +47,7 @@ public class GameDetailActivity extends AppCompatActivity {
         }
         DBinding.setVariables(b, mViewData);
 
-        /** 
+        /**
          * 两个页面对like做了不同的监听处理，item中如果liked，那么文字变黄，当前界面中就是变灰色。
          * 这里用到了all做强制刷新,这里的注册应该在界面结束时销毁，如果不销毁，那么每次进入这个界面都会增加一个新的监听
          * 如果这个viewData仅仅是在一个页面中用，那么可以不用做remove回调的事情。但如果这个viewData通过intent进行传递了。
@@ -55,7 +55,9 @@ public class GameDetailActivity extends AppCompatActivity {
          */
         mCallback = getCallback(b, mViewData);
         mViewData.addOnPropertyChangedCallback(mCallback);
-        mViewData.notifyChange();
+        // 因为监听器是在数据改变之后设置的，所以这里强制进行一次所有监听器的通知。
+        // 因为只有监听BR._all这个id的监听才会被调用，所以不会进行整个界面的全刷。
+        mViewData.notifyChange(); 
 
         b.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +81,7 @@ public class GameDetailActivity extends AppCompatActivity {
             public void onPropertyChanged(Observable sender, int propertyId) {
                 Log.d(TAG, "onPropertyChanged: " + propertyId);
                 if (propertyId == BR._all || propertyId == BR.isLikeText) {
+                    // 因为这个属性要被notifyChange()所影响，所以监听了BR._all这个id
                     if (viewData.getIsLikeText().equals(LIKED)) {
                         b.likeBtn.setTextColor(getResources().getColor(R.color.dark_gray));
                         b.likeBtn.setEnabled(false);
