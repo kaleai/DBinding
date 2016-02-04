@@ -20,6 +20,9 @@ import viewdata.UserViewData;
  */
 public class MainViewModel {
 
+    /**
+     * 这里是其他的vd，仅仅是说明，没啥用处
+     */
     private final OtherViewData mOtherViewData;
 
     private UserViewData mUserViewData;
@@ -58,6 +61,9 @@ public class MainViewModel {
         return context.getPackageName();
     }
 
+    /**
+     * 为了说明的简单，这里模拟网络加载数据的步骤，还没做网络层。
+     */
     public void loadData() {
         ArrayList<NewsInfo> list = new ArrayList<>();
         list.add(new NewsInfo("Hitman 47", "Like", new int[]{R.drawable.hit_man, R.drawable.hit_man_icon}));

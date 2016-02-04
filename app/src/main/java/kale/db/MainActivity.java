@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         bindViews();
         setViews();
         doTransaction();
-        
     }
 
     ActivityMainBinding b;

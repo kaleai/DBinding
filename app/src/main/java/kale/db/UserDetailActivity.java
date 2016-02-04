@@ -34,6 +34,7 @@ public class UserDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UserDetailBinding b = DBinding.bind(this, R.layout.user_detail); // 设置布局
+        // 通过toViewData得到真正的vd对象
         mViewData = UserViewData.toViewData(getIntent().getSerializableExtra(KEY));
         
         DBinding.setVariables(b, mViewData); // 设置viewData到binding
