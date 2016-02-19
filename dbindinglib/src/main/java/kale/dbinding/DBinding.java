@@ -13,22 +13,18 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import kale.dbinding.util.ReflectUtil;
+
 /**
  * @author Kale
  * @date 2015/12/26
  */
 public class DBinding {
 
-    private static final String TAG = "DBinding";
-
-    public static void setVariables(@NonNull ViewDataBinding binding, @NonNull BaseObservable... vds) {
-        /*if (!binding.getClass().getSuperclass().getSimpleName().equals("ViewDataBinding")) {
-            throw new IllegalArgumentException("The type of first arg must be ViewDataBinding");
-        }*/
-        Map<Class, Method> setMethods = new HashMap<>(); // methods cache
+    public static void setVariables(@NonNull ViewDataBinding binding, @NonNull BaseObservable... vms) {
+        Map<Class<?>, Method> setMethods = new HashMap<>(); // methods cache
         Method[] methods = binding.getClass().getDeclaredMethods(); // public methods
-        for (int i = 0, size = methods.length; i < size; i++) {
-            Method method = methods[i];
+        for (Method method : methods) {
             if (method.getModifiers() == Modifier.PUBLIC
                     && method.getReturnType() == void.class
                     && method.getName().startsWith("set")
@@ -38,25 +34,27 @@ public class DBinding {
             }
         }
 
-        for (int i = 0, size = vds.length; i < size; i++) {
-            if (vds[i] == null) {
-                throw new NullPointerException("No." + i + 1 + "viewData is not init");
+        for (BaseObservable vd : vms) {
+            if (vd == null) {
+                throw new NullPointerException("One or more ViewModel is null");
             }
-            try {
-                Class vdClz = vds[i].getClass();
-                if (setMethods.get(vdClz) != null) {
-                    setMethods.get(vdClz).invoke(binding, vds[i]);
-                } else {
-                    throw new RuntimeException("binding和viewdata不对应，应检查是否使用了正确的bind和vd组合" + vds[i].getClass().getSimpleName());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            
+            Method method = getMatchedMethod(setMethods, vd.getClass());
+            ReflectUtil.invokeMethod(method, binding, vd);
         }
     }
 
+    private @NonNull static Method getMatchedMethod(Map<Class<?>, Method> map, Class<?> clz) {
+        for (Map.Entry<Class<?>, Method> entry : map.entrySet()) {
+            if (entry.getKey().isAssignableFrom(clz)) {
+                return entry.getValue();
+            }
+        }
+        throw new RuntimeException(clz.getSimpleName() + " was not found in binding");
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
-    // Bind viewData to View
+    // Bind <=> View
     ///////////////////////////////////////////////////////////////////////////
 
     public static <T extends ViewDataBinding> T bind(Activity activity, @LayoutRes int layoutId) {
@@ -65,5 +63,22 @@ public class DBinding {
 
     public static <T extends ViewDataBinding> T bind(View root) {
         return DataBindingUtil.bind(root);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Bind view and viewModel
+    ///////////////////////////////////////////////////////////////////////////
+
+    public static <T extends ViewDataBinding> T bindViewModel(Activity activity, @LayoutRes int layoutId, @NonNull BaseObservable... vms) {
+        T bind = bind(activity, layoutId);
+        setVariables(bind, vms);
+        return bind;
+    }
+
+    public static <T extends ViewDataBinding> T bindViewModel(View root, @NonNull BaseObservable... vms) {
+        T bind = bind(root);
+        setVariables(bind, vms);
+        return bind;
     }
 }

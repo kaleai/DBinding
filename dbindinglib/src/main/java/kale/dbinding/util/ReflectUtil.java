@@ -3,6 +3,8 @@ package kale.dbinding.util;
 import android.support.annotation.NonNull;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * @author Kale
@@ -30,6 +32,16 @@ public class ReflectUtil {
         try {
             field.set(target, value); // init fields
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void invokeMethod(Method method,Object obj,Object... params) {
+        try {
+            method.invoke(obj,params);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }

@@ -90,7 +90,7 @@ dependencies {
 ```JAVA
 public class MainViewModel {
 
-    public MainViewModel(UserViewData userViewData,OtherViewData otherViewData) {
+    public MainViewModel(UserViewData userViewData,OtherViewData otherViewModel) {
         userViewData.setName("漩涡鸣人");  // textview中就会自动渲染出文字了
     }
 

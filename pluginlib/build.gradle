@@ -1,8 +1,8 @@
 apply plugin: 'java'
 
 // thanks for http://stackoverflow.com/questions/24662801/bad-class-file-magic-or-version
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 configurations {
     provided
@@ -10,7 +10,7 @@ configurations {
 }
 
 dependencies {
-    // 如果引入了android包，插件会自动剔除它的，所以对于android中的类，我专门写了空类。
+    // 如果引入了android包，插件会自动剔除它的，所以对于android中的类，我专门在android这个包中写了空类。
     //provided 'com.google.android:android:2.1.2'
     //provided 'com.google.android:support-v4:r7'
 }

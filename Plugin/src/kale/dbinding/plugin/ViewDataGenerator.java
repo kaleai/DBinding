@@ -22,7 +22,7 @@ import kale.dbinding.GenViewData;
  * @author Kale
  * @date 2015/12/28
  * 
- * 生成viewData的插件
+ * 生成viewModel的插件
  */
 public class ViewDataGenerator extends AnAction {
 

@@ -56,21 +56,21 @@ public class FileHelper {
         return files;
     }
 
-    public static void createViewDataFile(String moduleDir, String dirName, String fileName, String content) throws IOException {
-        dirName = moduleDir + CLASS_SAVED_PATH + dirName;
-        fileName = LetterUtil.getUpperLetter(fileName);
-        File dir = new File(dirName);
-        dir.mkdirs();
-        File file = new File(dirName, fileName + ".java");
-        OutputStream output = new FileOutputStream(file);
-        output.write(content.getBytes());
-        output.flush();
-        output.close();
+    public static void createViewModelFile(String moduleDir, String dirName, String fileName, String content) {
+        try {
+            dirName = moduleDir + CLASS_SAVED_PATH + dirName;
+            fileName = LetterUtil.getUpperLetter(fileName);
+            File dir = new File(dirName);
+            dir.mkdirs();
+            File file = new File(dirName, fileName + ".java");
+            OutputStream output = new FileOutputStream(file);
+            output.write(content.getBytes());
+            output.flush();
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // utils
-    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * Traverse the specified file directory and subdirectories
@@ -87,32 +87,6 @@ public class FileHelper {
                 }
             }
         }
-    }
-
-    /**
-     * delete all viewData in your module
-     */
-    public static void deleteAllFile(String moduleDir) {
-        File dir = new File(moduleDir + CLASS_SAVED_PATH);
-        deleteDir(dir);
-    }
-
-    /**
-     * Delete all files in the directory
-     *
-     * @param dir file dir
-     */
-    private static boolean deleteDir(File dir) {
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
-            for (String aChildren : children) {
-                boolean success = deleteDir(new File(dir, aChildren));
-                if (!success) {
-                    return false;
-                }
-            }
-        }
-        return dir.delete();
     }
 
 }

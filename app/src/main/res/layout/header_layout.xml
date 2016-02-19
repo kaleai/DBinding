@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="viewdata.UserViewData"
+            type="vm.UserViewModel"
             />
     </data>
 
@@ -31,9 +31,10 @@
             android:layout_margin="10dp"
             android:scaleType="fitXY"
             android:src="@{user.pic , default= @drawable/speed_icon}"
+            android:onClick="@{user.onClick}"
             />
-
         <TextView
+
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +47,6 @@
             android:textColor="@color/white"
             android:textSize="30sp"
             />
-
 
     </RelativeLayout>
 </layout>

@@ -8,18 +8,18 @@
 
         <variable
             name="user"
-            type="viewdata.UserViewData"
+            type="vm.UserViewModel"
             />
 
         <variable
             name="other"
-            type="viewdata.OtherViewData"
+            type="vm.OtherViewModel"
             />
 
         <variable
             name="ignore"
             ignore="true"
-            type="viewdata.ignored.IgnoreViewData"
+            type="vm.ignored.IgnoreViewModel"
             />
 
     </data>
@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/game_item"
+            app:rcvAdapter="@{user.adapter}"
             />
 
     </LinearLayout>

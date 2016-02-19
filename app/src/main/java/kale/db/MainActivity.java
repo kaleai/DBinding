@@ -3,21 +3,20 @@ package kale.db;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
 import android.widget.Toast;
 
 import kale.db.databinding.ActivityMainBinding;
 import kale.dbinding.DBinding;
-import viewdata.OtherViewData;
-import viewdata.UserViewData;
+import vm.OtherViewModel;
+import vm.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private final UserViewModel mUserVm = new UserViewModel();
 
-    private UserViewData mUserViewData = new UserViewData();
+    private final OtherViewModel mOtherVm = new OtherViewModel(); // 无意义，仅仅做说明
 
-    private OtherViewData mOtherViewData = new OtherViewData();
+    private ActivityMainBinding b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,32 +26,26 @@ public class MainActivity extends AppCompatActivity {
         doTransaction();
     }
 
-    ActivityMainBinding b;
-
     private void bindViews() {
-        b = DBinding.bind(this, R.layout.activity_main); // 设置布局
+        b = DBinding.bindViewModel(this, R.layout.activity_main, mUserVm, mOtherVm); // 对vm的放入顺序无要求
     }
 
     private void setViews() {
-        DBinding.setVariables(b, mUserViewData, mOtherViewData);// 不要求放入的顺序
-        b.userInfoInclude.headPicIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(UserDetailActivity.withIntent(MainActivity.this, mUserViewData));
+        mUserVm.setOnClick(v -> {
+            if (v == b.userInfoInclude.headPicIv) {
+                startActivity(UserDetailActivity.withIntent(MainActivity.this, mUserVm));
             }
         });
+
         // 设置view的属性
         b.mainRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
     private void doTransaction() {
-        final MainViewModel viewModel = new MainViewModel(mUserViewData, mOtherViewData); // 定义vm
-        boolean show = viewModel.init(this);
-        if (show) {
+        MainPresenter presenter = new MainPresenter(mUserVm, this);
+        if (presenter.init(this)) {
             Toast.makeText(MainActivity.this, "Init Complete", Toast.LENGTH_SHORT).show();
         }
-        b.mainRv.setAdapter(viewModel.getAdapter(this));
-        
-        viewModel.loadData();
+        presenter.loadData();
     }
 }

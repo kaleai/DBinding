@@ -3,17 +3,15 @@ package kale.dbinding.parser;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ListAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import kale.dbinding.annotation.Visibility;
-
 /**
  * @author Kale
  * @date 2016/1/20
- *
  */
 public class TypeFinder {
 
@@ -22,44 +20,43 @@ public class TypeFinder {
      * First String:    text
      * Second String:   CharSequence
      */
-    private static Map<String,String> attrTypeMap = new HashMap<>();
+    private static Map<String, String> attrTypeMap = new HashMap<>();
 
     public static String findTypeByAttrName(String name) {
-        // find value in custom config
+        // 1.find value in custom config
         String type = attrTypeMap.get(name);
         if (type != null) {
             return type;
         }
-        
-        // find value in default config
+
+        // 2.find value in default config
         switch (name) {
             case "text":
-                type = CharSequence.class.getCanonicalName();
-                break;
+                return CharSequence.class.getCanonicalName();
             case "visibility":
-                type = "@" + Visibility.class.getCanonicalName() + " " + int.class.getCanonicalName();
-                break;
+                return int.class.getCanonicalName();
             case "src":
             case "drawableLeft":
-                type = Bitmap.class.getCanonicalName();
-                break;
+                return Bitmap.class.getCanonicalName();
             case "listAdapter":
-                type = ListAdapter.class.getCanonicalName();
-                break;
+                return ListAdapter.class.getCanonicalName();
             case "pagerAdapter":
-                type = PagerAdapter.class.getCanonicalName();
-                break;
+                return PagerAdapter.class.getCanonicalName();
             case "rcvAdapter":
-                type = RecyclerView.Adapter.class.getCanonicalName();
-                break;
+                return RecyclerView.Adapter.class.getCanonicalName();
+
+            // events
+            case "onClick":
+                return View.OnClickListener.class.getCanonicalName();
+            case "onLongClick":
+                return View.OnLongClickListener.class.getCanonicalName();
             default:
                 // not support
-                type = Object.class.getCanonicalName();
+                return Object.class.getCanonicalName();
         }
-        return type;
     }
 
-    public static void setCustomAttrConfig(Map<String,String> config) {
+    public static void setCustomAttrConfig(Map<String, String> config) {
         attrTypeMap = config;
     }
 }

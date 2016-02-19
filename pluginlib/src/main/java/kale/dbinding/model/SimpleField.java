@@ -9,7 +9,7 @@ public class SimpleField {
     public String type;
 
     public String name;
-
+    
     public SimpleField(String type, String name) {
         if (type == null) {
             type = Object.class.getCanonicalName();

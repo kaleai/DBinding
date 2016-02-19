@@ -11,43 +11,43 @@ import java.util.List;
  * @author Kale
  * @date 2016/1/22
  */
-class ViewDataStorage {
+class ViewModelStorage {
 
     /**
      * 调用的类，类中的vd
-     * [current class, viewData]
+     * [current class, viewModel]
      */
-    private final List<BaseViewData> mDataList = new ArrayList<>();
+    private final List<BaseViewModel> mDataList = new ArrayList<>();
 
-    private static ViewDataStorage instance;
+    private static ViewModelStorage instance;
 
-    public static ViewDataStorage getInstance() {
+    public static ViewModelStorage getInstance() {
         if (instance == null) {
-            instance = new ViewDataStorage();
+            instance = new ViewModelStorage();
         }
         return instance;
     }
 
-    private ViewDataStorage() {
+    private ViewModelStorage() {
         
     }
 
     public
     @NonNull
     @CheckResult
-    List<BaseViewData> getDataList() {
+    List<BaseViewModel> getDataList() {
         return mDataList;
     }
 
-    public int putViewData(@NonNull BaseViewData viewData) {
+    public int putViewModel(@NonNull BaseViewModel viewModel) {
         int index = mDataList.size();
-        mDataList.add(viewData);
+        mDataList.add(viewModel);
         return index;
     }
 
     public
     @Nullable
-    BaseViewData removeViewData(int key) {
+    BaseViewModel removeViewModel(int key) {
         return mDataList.remove(key);
     }
 }

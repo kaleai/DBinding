@@ -3,7 +3,6 @@ package kale.dbinding;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,22 +14,16 @@ import javax.xml.stream.events.XMLEvent;
 
 import kale.dbinding.model.SimpleClass;
 import kale.dbinding.parser.TypeFinder;
-import kale.dbinding.parser.ViewDataGenerator;
+import kale.dbinding.parser.ViewModelGenerator;
 import kale.dbinding.util.FileHelper;
 
-public class GenViewData {
+public class GenViewModel {
 
-    public static void generateViewData(String moduleDir) {
-        // FileHelper.deleteAllFile(moduleDir);
-        // 1.load config
+    public static void generateViewModel(String moduleDir) {
         File config = FileHelper.loadConfigFile(moduleDir);
         TypeFinder.setCustomAttrConfig(getAttrConfig(config));
-
-        // 2.load all layout files
         List<File> files = FileHelper.loadLayoutFiles(moduleDir);
-
-        // 3.get classes which will be create
-        List<SimpleClass> classes = new ViewDataGenerator().generateAllViewData(files);
+        List<SimpleClass> classes = new ViewModelGenerator().generateAllViewModels(files);
 
         final StringBuilder dir = new StringBuilder();
         for (SimpleClass cls : classes) {
@@ -40,18 +33,14 @@ public class GenViewData {
                 dir.append(name).append(File.separator);
             }
 
-            try {
-                FileHelper.createViewDataFile(moduleDir, dir.toString(), cls.simpleName, cls.content);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
+            FileHelper.createViewModelFile(moduleDir, dir.toString(), cls.simpleName, cls.content);
             dir.delete(0, dir.length()); // clear StringBuilder
         }
     }
 
     /**
      * Parse xml file to Map<String, String>
+     *
      * xml: <string name="text">java.lang.CharSequence</string>
      * map: [text : java.lang.CharSequence]
      */

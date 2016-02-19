@@ -8,7 +8,7 @@
 
         <variable
             name="game"
-            type="viewdata.GameViewData"
+            type="vm.GameViewModel"
             />
     </data>
 

@@ -21,4 +21,21 @@ public class LetterUtil {
     public static String getLowerLetter(String str) {
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
+
+    /**
+     * {kale} - > kale
+     */
+    public static String getSubString(String originStr, String begin) {
+        int beginIndex = originStr.indexOf(begin) + begin.length();
+        return originStr.substring(beginIndex);
+    }
+
+    /**
+     * -kale -> kale
+     */
+    public static String getSubString(String originStr, String begin, String end) {
+        int beginIndex = originStr.indexOf(begin) + begin.length();
+        int endIndex = originStr.indexOf(end);
+        return originStr.substring(beginIndex, endIndex);
+    }
 }

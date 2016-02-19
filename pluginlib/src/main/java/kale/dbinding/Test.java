@@ -19,7 +19,7 @@ public class Test {
         long start = System.currentTimeMillis();
         String moduleDir = ROOT + File.separator + "app" + File.separator;
 
-        GenViewData.generateViewData(moduleDir);
+        GenViewModel.generateViewModel(moduleDir);
 
         System.out.println("========== end =========== " + (System.currentTimeMillis() - start));
     }

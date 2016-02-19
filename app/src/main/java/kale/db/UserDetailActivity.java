@@ -4,47 +4,45 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.widget.Toast;
 
 import kale.db.databinding.UserDetailBinding;
-import kale.dbinding.BaseViewData;
+import kale.dbinding.BaseViewModel;
 import kale.dbinding.DBinding;
-import viewdata.UserViewData;
+import vm.UserViewModel;
 
 /**
  * @author Kale
  * @date 2015/12/26
- * 
- * 这里因为需求很简单，所以就没做viewModel
  */
 public class UserDetailActivity extends AppCompatActivity {
 
-    private UserViewData mViewData;
-    
-    private static final String KEY = "view_data";
+    private UserViewModel mUserVm;
 
-    public static Intent withIntent(Activity activity, BaseViewData viewData) {
+    private static final String KEY = "view_model";
+
+    public static Intent withIntent(Activity activity, BaseViewModel viewModel) {
         return new Intent(activity, UserDetailActivity.class)
-                .putExtra(KEY, viewData.toSerializable());
+                .putExtra(KEY, viewModel.toSerializable());
     }
-    
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        UserDetailBinding b = DBinding.bind(this, R.layout.user_detail); // 设置布局
-        // 通过toViewData得到真正的vd对象
-        mViewData = UserViewData.toViewData(getIntent().getSerializableExtra(KEY));
-        
-        DBinding.setVariables(b, mViewData); // 设置viewData到binding
 
-        b.changeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewData.setPic(BitmapFactory.decodeResource(getResources(), R.drawable.kale));
-                mViewData.setName("Kale");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 通过toViewModel得到真正的vm对象
+        mUserVm = UserViewModel.toViewModel(getIntent().getSerializableExtra(KEY));
+        
+        UserDetailBinding b = DBinding.bindViewModel(this, R.layout.user_detail, mUserVm);
+
+        mUserVm.setOnClick(v -> {
+            if (v == b.changeBtn) {
+                mUserVm.setPic(BitmapFactory.decodeResource(getResources(), R.drawable.kale));
+                mUserVm.setName("Kale");
+            } else if (v == b.headPicIv) {
+                Toast.makeText(UserDetailActivity.this, "点击了头像", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

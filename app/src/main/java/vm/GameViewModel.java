@@ -1,8 +1,8 @@
-package viewdata; 
+package vm; 
 import android.databinding.Bindable;
-import kale.dbinding.BaseViewData;
+import kale.dbinding.BaseViewModel;
 import com.android.databinding.library.baseAdapters.BR;
-public class GameViewData extends BaseViewData {
+public class GameViewModel extends BaseViewModel {
 
     private android.graphics.Bitmap pic;
     public final void setPic(android.graphics.Bitmap pic) {

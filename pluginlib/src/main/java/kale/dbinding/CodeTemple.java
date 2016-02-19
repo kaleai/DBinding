@@ -14,13 +14,13 @@ public class CodeTemple {
 
     public static final String CLASS_TEMPLE = "package %s; \n"
             + "import android.databinding.Bindable;\n"
-            + "import kale.dbinding.BaseViewData;\n"
+            + "import kale.dbinding.BaseViewModel;\n"
             + "import com.android.databinding.library.baseAdapters.BR;\n"
 
-            + "public class %s extends BaseViewData {%s}";
+            + "public class %s extends BaseViewModel {%s}";
 
     /**
-     * for normal fields
+     * For normal fields
      */
     public static final String FIELD_TEMPLE = "\n\n"
             + "    private " + TYPE + " " + FIELD + ";\n"
@@ -29,18 +29,6 @@ public class CodeTemple {
             + "        notifyPropertyChanged(BR." + FIELD + ");\n"
             + "    }\n"
             + "    @Bindable public final " + TYPE + " get" + UP_FIELD + "() {return this." + FIELD + ";}";
-
-    /**
-     * for editText's text
-     */
-    public static final String EDIT_TEXT_FIELD_TEMPLE = "\n\n"
-            + "    private ObservableField<CharSequence> " + FIELD + ";\n"
-            + "    public final void set" + UP_FIELD + "(CharSequence " + FIELD + ") {\n"
-            + "        setTextAndAddListener(this." + FIELD + ", " + FIELD + ");\n"
-            + "        notifyPropertyChanged(BR." + FIELD + ");\n"
-            + "    }\n"
-            + "    @Bindable public final CharSequence get" + UP_FIELD + "() {return this." + FIELD + ".get();}";
-
 
     /**
      * Write this to config file when file is first created

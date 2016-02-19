@@ -6,9 +6,15 @@
     <data>
 
         <variable
-            name="game"
-            type="viewdata.GameViewData"
+            name="event"
+            type="vm.EventViewModel"
             />
+        
+        <variable
+            name="game"
+            type="vm.GameViewModel"
+            />
+        
     </data>
 
     <RelativeLayout
@@ -23,7 +29,6 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@{game.pic , default=@drawable/hit_man}"
-            android:contentDescription="main pic"
             />
 
         <LinearLayout
@@ -58,6 +63,7 @@
                 android:background="#000000"
                 android:textColor="@color/white"
                 android:text="@{game.isLikeText , default = like}"
+                android:onClick="@{event.onClick}"
                 />
 
         </LinearLayout>

@@ -29,7 +29,7 @@
     <actions>
         <!-- Add your actions here -->
         <action id="generate_viewdata" class="kale.dbinding.plugin.ViewDataGenerator" text="Generate ViewData"
-            description="通过解析layout文件来自动生成ViewData">
+            description="通过解析layout文件来自动生成ViewModel">
             <add-to-group group-id="WindowMenu" anchor="first" />
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G" />
         </action>

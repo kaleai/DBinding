@@ -4,16 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.Observable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import kale.db.databinding.GameDetailBinding;
 import kale.dbinding.DBinding;
-import viewdata.GameViewData;
+import vm.EventViewModel;
+import vm.GameViewModel;
 
 /**
  * @author Kale
@@ -21,76 +17,66 @@ import viewdata.GameViewData;
  */
 public class GameDetailActivity extends AppCompatActivity {
 
-    private static final String TAG = "GameDetailActivity";
-
     private static final String KEY = "view_data";
 
-    public static final String LIKED = "liked";
-
-    private GameViewData mViewData;
+    private GameViewModel mGameVm;
 
     private Observable.OnPropertyChangedCallback mCallback;
 
-    public static Intent withIntent(Activity activity, GameViewData viewData) {
+    private EventViewModel mEvent = new EventViewModel();
+
+    public static Intent withIntent(Activity activity, GameViewModel viewModel) {
         return new Intent(activity, GameDetailActivity.class)
-                .putExtra(KEY, viewData.toSerializable());
+                .putExtra(KEY, viewModel.toSerializable());
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final GameDetailBinding b = DBinding.bind(this, R.layout.game_detail);
 
-        mViewData = GameViewData.toViewData(getIntent().getSerializableExtra(KEY));
-        if (mViewData == null) {
-            return;
-        }
-        DBinding.setVariables(b, mViewData);
+        mGameVm = GameViewModel.toViewModel(getIntent().getSerializableExtra(KEY));
 
-        /**
-         * 两个页面对like做了不同的监听处理，item中如果liked，那么文字变黄，当前界面中就是变灰色。
-         * 这里用到了all做强制刷新,这里的注册应该在界面结束时销毁，如果不销毁，那么每次进入这个界面都会增加一个新的监听
-         * 如果这个viewData仅仅是在一个页面中用，那么可以不用做remove回调的事情。但如果这个viewData通过intent进行传递了。
-         * 这就需要注意下要在页面中remove掉这个回调！
-         */
-        mCallback = getCallback(b, mViewData);
-        mViewData.addOnPropertyChangedCallback(mCallback);
-        // 因为监听器是在数据改变之后设置的，所以这里强制进行一次所有监听器的通知。
-        // 因为只有监听BR._all这个id的监听才会被调用，所以不会进行整个界面的全刷。
-        mViewData.notifyChange(); 
+        DBinding.setVariables(b, mEvent, mGameVm);
 
-        b.likeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(GameDetailActivity.this, "Click", Toast.LENGTH_SHORT).show();
-                mViewData.setIsLikeText(LIKED);
+        addCallback(b);
+
+        mEvent.setOnClick(v -> {
+            if (v == b.likeBtn) {
+                mGameVm.setIsLikeText(GameItem.LIKED);
             }
         });
+    }
+
+    /**
+     * 这个callback的方法中只有view层面的改变，所以不涉及任何逻辑代码
+     *
+     * 两个页面对like做了不同的监听处理，item中如果liked，那么文字变黄，当前界面中就是变灰色。
+     * 这里用到了all做强制刷新,这里的注册应该在界面结束时销毁，如果不销毁，那么每次进入这个界面都会增加一个新的监听
+     *
+     * 如果这个viewModel仅仅是在一个页面中用，那么可以不用做remove回调的事情。但如果这个viewModel通过intent进行传递了。
+     * 这就需要注意下要在页面中remove掉这个回调！
+     */
+    private void addCallback(final GameDetailBinding b) {
+        mCallback = mGameVm.addOnValueChangedCallback(propertyId -> {
+            if (propertyId == BR._all || propertyId == BR.isLikeText) {
+                
+                // 因为这个属性要被notifyChange()所影响，所以监听了BR._all这个id
+                boolean isLiked = mGameVm.getIsLikeText().equals(GameItem.LIKED);
+                b.likeBtn.setTextColor(getResources().getColor(isLiked ? R.color.dark_gray : R.color.white));
+                b.likeBtn.setEnabled(!isLiked);
+            }
+        });
+
+        // 因为监听器是在数据改变之后设置的，所以这里强制进行一次所有监听器的通知。
+        // 因为只有监听BR._all这个id的监听才会被调用，所以不会进行整个界面的全刷。
+        mGameVm.notifyChange();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mViewData.removeOnPropertyChangedCallback(mCallback);
+        mGameVm.removeOnPropertyChangedCallback(mCallback);
     }
 
-    @NonNull
-    private Observable.OnPropertyChangedCallback getCallback(final GameDetailBinding b, final GameViewData viewData) {
-        return new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                Log.d(TAG, "onPropertyChanged: " + propertyId);
-                if (propertyId == BR._all || propertyId == BR.isLikeText) {
-                    // 因为这个属性要被notifyChange()所影响，所以监听了BR._all这个id
-                    if (viewData.getIsLikeText().equals(LIKED)) {
-                        b.likeBtn.setTextColor(getResources().getColor(R.color.dark_gray));
-                        b.likeBtn.setEnabled(false);
-                    } else {
-                        b.likeBtn.setTextColor(getResources().getColor(R.color.white));
-                        b.likeBtn.setEnabled(true);
-                    }
-                }
-            }
-        };
-    }
 }
