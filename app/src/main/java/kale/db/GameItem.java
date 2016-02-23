@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import kale.adapter.item.AdapterItem;
 import kale.adapter.item.BaseAdapterItem;
 import kale.db.databinding.GameItemBinding;
 import kale.db.model.NewsInfo;
@@ -16,19 +17,17 @@ import vm.GameViewModel;
  * @author Kale
  * @date 2016/1/6
  */
-public class GameItem extends BaseAdapterItem<NewsInfo> {
+public class GameItem implements AdapterItem<NewsInfo> {
 
     public static final String LIKED = "liked";
 
     private GameItemBinding b;
 
-    private final GameViewModel mGameVm;
-
+    private final GameViewModel mGameVm = new GameViewModel();
     private Activity mActivity;
 
     public GameItem(Activity activity) {
         mActivity = activity;
-        mGameVm = new GameViewModel();
     }
 
     @Override
@@ -37,14 +36,14 @@ public class GameItem extends BaseAdapterItem<NewsInfo> {
     }
 
     @Override
-    protected void bindViews() {
-        b = DBinding.bindViewModel(root, mGameVm);
+    public void bindViews(View view) {
+        b = DBinding.bindViewModel(view, mGameVm);
     }
 
     @Override
     public void setViews() {
         notifyData(b);
-        root.setOnClickListener(v -> mActivity.startActivity(GameDetailActivity.withIntent(mActivity, mGameVm)));
+        b.getRoot().setOnClickListener(v -> mActivity.startActivity(GameDetailActivity.withIntent(mActivity, mGameVm)));
     }
 
     /**
@@ -62,7 +61,7 @@ public class GameItem extends BaseAdapterItem<NewsInfo> {
                     break;
                 case BR.isLikeText:
                     final int color = mGameVm.getIsLikeText().equals(LIKED) ? R.color.yellow : R.color.gray;
-                    b.isLikeText.setTextColor(b.getRoot().getResources().getColor(color));
+                    b.isLikeText.setTextColor(mActivity.getResources().getColor(color));
                     break;
             }
         });
@@ -83,9 +82,9 @@ public class GameItem extends BaseAdapterItem<NewsInfo> {
      */
     @Override
     public void handleData(NewsInfo data, int pos) {
-        mGameVm.setPic(BitmapFactory.decodeResource(root.getResources(), data.picResIdArr[0]));
+        mGameVm.setPic(BitmapFactory.decodeResource(mActivity.getResources(), data.picResIdArr[0]));
         mGameVm.setTitle(data.title);
-        mGameVm.setIcon(BitmapFactory.decodeResource(root.getResources(), data.picResIdArr[1]));
+        mGameVm.setIcon(BitmapFactory.decodeResource(mActivity.getResources(), data.picResIdArr[1]));
         mGameVm.setIsLikeText(data.isLikeText);
     }
 

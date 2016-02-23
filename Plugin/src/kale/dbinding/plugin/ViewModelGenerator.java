@@ -4,7 +4,6 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
@@ -16,7 +15,9 @@ import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.ui.awt.RelativePoint;
 
-import kale.dbinding.GenViewData;
+import org.jetbrains.annotations.Nullable;
+
+import kale.dbinding.GenViewModel;
 
 /**
  * @author Kale
@@ -24,43 +25,20 @@ import kale.dbinding.GenViewData;
  * 
  * 生成viewModel的插件
  */
-public class ViewDataGenerator extends AnAction {
+public class ViewModelGenerator extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-
         long start = System.currentTimeMillis();
-        
-        Editor[] editors = EditorFactory.getInstance().getAllEditors(); // 得到当前开启的tab
-        FileDocumentManager fileDocManager = FileDocumentManager.getInstance();
-        /*for (Editor editor : editors) {
-            VirtualFile vf = fileDocManager.getFile(editor.getDocument());
-            String path = vf.getCanonicalPath();
-            System.out.println("path = " + path);
-        }*/
 
-        final Project project = e.getProject();
-        if (project == null) {
-            return;
-        }
-        final Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor(); // 得到当前的文件
-        if (editor == null) {
-            return;
-        }
-        final VirtualFile vf = fileDocManager.getFile(editor.getDocument());
-        if (vf == null) {
-            return;
-        }
-        String path = vf.getCanonicalPath();
+        String path = getPath(e);
         if (path == null) {
             return;
         }
         
-        
         path = path.substring(0, path.indexOf("src"));
-        System.out.println("path = " + path);
-        
-        GenViewData.generateViewData(path);
+
+        GenViewModel.generateViewModel(path);
         
         StatusBar statusBar = WindowManager.getInstance().getStatusBar(DataKeys.PROJECT.getData(e.getDataContext()));
 
@@ -76,5 +54,28 @@ public class ViewDataGenerator extends AnAction {
                 .createBalloon()
                 .show(RelativePoint.getCenterOf(statusBar.getComponent()), Balloon.Position.above);
     }
-    
+
+    @Nullable
+    private String getPath(AnActionEvent e) {
+        FileDocumentManager fileDocManager = FileDocumentManager.getInstance();
+
+        final Project project = e.getProject();
+        if (project == null) {
+            return null;
+        }
+        final Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor(); // 得到当前的文件
+        if (editor == null) {
+            return null;
+        }
+        final VirtualFile vf = fileDocManager.getFile(editor.getDocument());
+        if (vf == null) {
+            return null;
+        }
+        String path = vf.getCanonicalPath();
+        if (path == null) {
+            return null;
+        }
+        return path;
+    }
+
 }

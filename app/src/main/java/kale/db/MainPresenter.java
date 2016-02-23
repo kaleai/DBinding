@@ -1,8 +1,6 @@
 package kale.db;
 
 import android.app.Activity;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 
@@ -12,6 +10,7 @@ import kale.adapter.CommonRcvAdapter;
 import kale.adapter.item.AdapterItem;
 import kale.db.model.NewsInfo;
 import kale.db.network.NetworkService;
+import kale.dbinding.util.ObservableArrayList;
 import vm.UserViewModel;
 
 /**
@@ -22,7 +21,7 @@ public class MainPresenter {
 
     private final UserViewModel mUserVm;
     
-    private final ObservableList<NewsInfo> mList; // 界面的数据对象
+    private final ObservableArrayList<NewsInfo> mList; // 界面的数据对象
 
     public MainPresenter(UserViewModel userVm, final Activity activity) {
         mUserVm = userVm;

@@ -30,4 +30,11 @@ public class GameViewModel extends BaseViewModel {
         this.isLikeText = isLikeText;
         notifyPropertyChanged(BR.isLikeText);
     }
-    @Bindable public final java.lang.CharSequence getIsLikeText() {return this.isLikeText;}}
+    @Bindable public final java.lang.CharSequence getIsLikeText() {return this.isLikeText;}
+
+    private android.view.View.OnClickListener onClick;
+    public final void setOnClick(android.view.View.OnClickListener onClick) {
+        this.onClick = onClick;
+        notifyPropertyChanged(BR.onClick);
+    }
+    @Bindable public final android.view.View.OnClickListener getOnClick() {return this.onClick;}}

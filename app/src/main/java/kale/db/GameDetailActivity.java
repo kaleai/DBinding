@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import kale.db.databinding.GameDetailBinding;
 import kale.dbinding.DBinding;
-import vm.EventViewModel;
 import vm.GameViewModel;
 
 /**
@@ -23,8 +22,6 @@ public class GameDetailActivity extends AppCompatActivity {
 
     private Observable.OnPropertyChangedCallback mCallback;
 
-    private EventViewModel mEvent = new EventViewModel();
-
     public static Intent withIntent(Activity activity, GameViewModel viewModel) {
         return new Intent(activity, GameDetailActivity.class)
                 .putExtra(KEY, viewModel.toSerializable());
@@ -33,15 +30,12 @@ public class GameDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final GameDetailBinding b = DBinding.bind(this, R.layout.game_detail);
-
         mGameVm = GameViewModel.toViewModel(getIntent().getSerializableExtra(KEY));
 
-        DBinding.setVariables(b, mEvent, mGameVm);
-
+        final GameDetailBinding b = DBinding.bindViewModel(this, R.layout.game_detail, mGameVm);
         addCallback(b);
 
-        mEvent.setOnClick(v -> {
+        mGameVm.setOnClick(v -> {
             if (v == b.likeBtn) {
                 mGameVm.setIsLikeText(GameItem.LIKED);
             }
@@ -60,7 +54,6 @@ public class GameDetailActivity extends AppCompatActivity {
     private void addCallback(final GameDetailBinding b) {
         mCallback = mGameVm.addOnValueChangedCallback(propertyId -> {
             if (propertyId == BR._all || propertyId == BR.isLikeText) {
-                
                 // 因为这个属性要被notifyChange()所影响，所以监听了BR._all这个id
                 boolean isLiked = mGameVm.getIsLikeText().equals(GameItem.LIKED);
                 b.likeBtn.setTextColor(getResources().getColor(isLiked ? R.color.dark_gray : R.color.white));

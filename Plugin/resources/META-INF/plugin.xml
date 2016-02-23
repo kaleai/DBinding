@@ -1,12 +1,15 @@
 <idea-plugin version="2">
-    <id>com.your.company.unique.plugin.id</id>
-    <name>Plugin display name here</name>
+    <id>kale.dbinding.plugin</id>
+    <name>DBinding Plugin</name>
     <version>1.0</version>
     <vendor email="developer_kale@foxmail.com" url="http://weibo.com/shark0017">kale</vendor>
 
     <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      <html>Quickly to generate ViewModel for DBinging.<br>
+        <br>
+         ● Support for DataBinding and DBinding.<br>
+         <br><a href="https://github.com/tianzhijiexian/DBinding/"> DBinding</a>
+      </html>
     ]]></description>
 
     <change-notes><![CDATA[
@@ -28,9 +31,9 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="generate_viewdata" class="kale.dbinding.plugin.ViewDataGenerator" text="Generate ViewData"
+        <action id="generate_viewModel" class="kale.dbinding.plugin.ViewModelGenerator" text="Generate ViewModel"
             description="通过解析layout文件来自动生成ViewModel">
-            <add-to-group group-id="WindowMenu" anchor="first" />
+            <add-to-group group-id="GenerateGroup" anchor="first" />
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G" />
         </action>
     </actions>

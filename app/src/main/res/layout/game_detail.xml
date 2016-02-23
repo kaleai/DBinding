@@ -6,11 +6,6 @@
     <data>
 
         <variable
-            name="event"
-            type="vm.EventViewModel"
-            />
-        
-        <variable
             name="game"
             type="vm.GameViewModel"
             />
@@ -63,7 +58,7 @@
                 android:background="#000000"
                 android:textColor="@color/white"
                 android:text="@{game.isLikeText , default = like}"
-                android:onClick="@{event.onClick}"
+                android:onClick="@{game.onClick}"
                 />
 
         </LinearLayout>
