@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'android-apt'
+
+ext {
+    bundlerVersion = '0.1.1'
+}
 
 android {
     compileSdkVersion 23
@@ -41,7 +45,7 @@ dependencies {
     compile project(':dbindinglib')
     
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.jakewharton:butterknife:7.0.1'
-
+    compile "in.workarounds.bundler:bundler-annotations:$bundlerVersion"
+    apt "in.workarounds.bundler:bundler-compiler:$bundlerVersion"
     compile 'com.github.tianzhijiexian:CommonAdapter:92c7ef778e'
 }

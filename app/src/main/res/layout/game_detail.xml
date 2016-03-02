@@ -4,7 +4,10 @@
     >
 
     <data>
-
+        <variable
+            name="event"
+            type="vm.EventViewModel"
+            />
         <variable
             name="game"
             type="vm.GameViewModel"
@@ -12,7 +15,7 @@
         
     </data>
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
@@ -29,7 +32,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             android:background="@color/white"
             android:orientation="vertical"
             >
@@ -58,10 +61,10 @@
                 android:background="#000000"
                 android:textColor="@color/white"
                 android:text="@{game.isLikeText , default = like}"
-                android:onClick="@{game.onClick}"
+                android:onClick="@{event.onClick}"
                 />
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </FrameLayout>
 </layout>

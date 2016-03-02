@@ -2,8 +2,6 @@ package kale.dbinding.adapters;
 
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.TextView;
 
 import kale.dbinding.util.BitmapUtil;
@@ -39,9 +37,9 @@ public class TextViewAttrAdapter{
                 BitmapUtil.bitmap2Drawable(view.getResources(), bitmap), null);
     }
 
-    /**
+   /* *//**
      * 虽然这个属性，在view中没有，但是通过这样的方式是可以直接被绑定的。只不过会有个警告
-     */
+     *//*
     @BindingAdapter("app:smartText")
     public static void setSmartText(TextView view, CharSequence text) {
         if (!TextUtils.isEmpty(text)) {
@@ -53,5 +51,5 @@ public class TextViewAttrAdapter{
         } else {
             view.setVisibility(View.GONE);
         }
-    }
+    }*/
 }

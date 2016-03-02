@@ -36,6 +36,11 @@ public class MainPresenter {
         });
     }
 
+    public void loadData() {
+        List<NewsInfo> data = NetworkService.loadDataFromNetwork();
+        mList.addAll(0, data);
+    }
+
     /**
      * 这个当然可以放在构造方法中进行，我这里为了说明view层调用p的方法，强制加入了一个回调。
      */
@@ -43,11 +48,6 @@ public class MainPresenter {
         mUserVm.setPic(BitmapFactory.decodeResource(activity.getResources(), R.drawable.speed_icon));
         mUserVm.setName("Need for Speed");
         return true;
-    }
-
-    public void loadData() {
-        List<NewsInfo> data = NetworkService.loadDataFromNetwork();
-        mList.addAll(0, data);
     }
     
 }

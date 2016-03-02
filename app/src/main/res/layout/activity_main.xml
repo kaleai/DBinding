@@ -7,6 +7,11 @@
         <!-- 定义变量: var i -->
 
         <variable
+            name="event"
+            type="vm.EventViewModel"
+            />
+
+        <variable
             name="user"
             type="vm.UserViewModel"
             />
@@ -23,26 +28,27 @@
             />
 
     </data>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="kale.db.MainActivity"
         >
-        
+
         <include
             android:id="@+id/userInfo_include"
             layout="@layout/header_layout"
+            app:event="@{event}"
             app:user="@{user}"
             />
-        
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/game_item"
             app:rcvAdapter="@{user.adapter}"
+            tools:listitem="@layout/game_item"
             />
 
     </LinearLayout>

@@ -2,36 +2,23 @@ package kale.dbinding;
 
 import android.databinding.BaseObservable;
 import android.databinding.Observable;
-import android.support.annotation.Nullable;
 
-import java.io.Serializable;
+import kale.dbinding.util.SerializableViewModel;
+import kale.dbinding.util.ViewModelStorage;
 
 /**
  * @author Kale
  * @date 2016/1/9
  */
-public abstract class BaseViewModel extends BaseObservable {
-
-    private static ViewModelStorage mManager = ViewModelStorage.getInstance();
+public abstract class BaseViewModel<T extends BaseViewModel> extends BaseObservable {
 
     /**
-     * convert index to String
+     * convert index to {@link SerializableViewModel}
      */
-    public Serializable toSerializable() {
-        int index = mManager.putViewModel(this);
-        return String.valueOf(index);
+    public SerializableViewModel<T> toSerializable() {
+        int index = ViewModelStorage.getInstance().putViewModel(this);
+        return new SerializableViewModel<>(index);
     }
-
-    /**
-     * Find ViewModel By String
-     */
-    public static
-    @Nullable
-    <T extends BaseViewModel> T toViewModel(Serializable value) {
-        BaseViewModel data = mManager.removeViewModel(Integer.valueOf(((String) value)));
-        return (T) data;
-    }
-
 
     public synchronized Observable.OnPropertyChangedCallback addOnValueChangedCallback(final OnValueChangedCallback callback) {
         Observable.OnPropertyChangedCallback cb = new Observable.OnPropertyChangedCallback() {

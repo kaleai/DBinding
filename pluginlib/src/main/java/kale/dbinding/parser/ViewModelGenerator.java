@@ -144,8 +144,9 @@ public class ViewModelGenerator {
                             .replaceAll(CodeTemple.UP_FIELD, LetterUtil.getUpperLetter(field.name))
                             .replaceAll(CodeTemple.FIELD, field.name)));
 
-            clz.content = String.format(CodeTemple.CLASS_TEMPLE, clz.packageName,
-                    LetterUtil.getUpperLetter(clz.simpleName), sb.toString());
+            String clzName = LetterUtil.getUpperLetter(clz.simpleName);
+            clz.content = String.format(CodeTemple.CLASS_TEMPLE, clz.packageName, 
+                    clzName, clzName, sb.toString());
             sb.delete(0, sb.length());
         });
     }

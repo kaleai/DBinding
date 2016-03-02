@@ -1,4 +1,4 @@
-package kale.dbinding;
+package kale.dbinding.util;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
@@ -7,11 +7,13 @@ import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import kale.dbinding.BaseViewModel;
+
 /**
  * @author Kale
  * @date 2016/1/22
  */
-class ViewModelStorage {
+public class ViewModelStorage {
 
     /**
      * 调用的类，类中的vd

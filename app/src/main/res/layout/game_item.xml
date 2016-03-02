@@ -12,7 +12,7 @@
             />
     </data>
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -22,7 +22,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:scaleType="fitStart"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:src="@{game.icon , default = @drawable/hit_man_icon}"
             />
 
@@ -30,11 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="left"
             android:layout_marginLeft="120dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_gravity="center_vertical"
             >
 
             <TextView
@@ -65,5 +62,5 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </FrameLayout>
 </layout>

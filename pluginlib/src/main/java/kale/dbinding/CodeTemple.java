@@ -17,18 +17,18 @@ public class CodeTemple {
             + "import kale.dbinding.BaseViewModel;\n"
             + "import com.android.databinding.library.baseAdapters.BR;\n"
 
-            + "public class %s extends BaseViewModel {%s}";
+            + "public class %s extends BaseViewModel<%s> {%s}";
 
     /**
      * For normal fields
      */
     public static final String FIELD_TEMPLE = "\n\n"
             + "    private " + TYPE + " " + FIELD + ";\n"
-            + "    public final void set" + UP_FIELD + "(" + TYPE + " " + FIELD + ") {\n"
+            + "    public void set" + UP_FIELD + "(" + TYPE + " " + FIELD + ") {\n"
             + "        this." + FIELD + " = " + FIELD + ";\n"
             + "        notifyPropertyChanged(BR." + FIELD + ");\n"
             + "    }\n"
-            + "    @Bindable public final " + TYPE + " get" + UP_FIELD + "() {return this." + FIELD + ";}";
+            + "    @Bindable public " + TYPE + " get" + UP_FIELD + "() {return this." + FIELD + ";}";
 
     /**
      * Write this to config file when file is first created

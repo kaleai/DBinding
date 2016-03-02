@@ -7,6 +7,11 @@
     <data>
 
         <variable
+            name="event"
+            type="vm.EventViewModel"
+            />
+        
+        <variable
             name="user"
             type="vm.UserViewModel"
             />
@@ -17,45 +22,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        
         >
 
         <ImageView
             android:id="@+id/head_pic_iv"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:onClick="@{event.onClick}"
             android:scaleType="centerInside"
             android:src="@{user.pic}"
             tools:src="@drawable/speed_icon"
-            android:onClick="@{user.onClick}"
             />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/data_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@{user.name , default = Speed}"
+            android:textSize="20sp"
+            />
 
-            <EditText
-                android:id="@+id/data_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="@{user.name , default = Speed}"
-                android:textSize="20sp"
-                />
-
-            <Button
-                android:id="@+id/change_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:onClick="@{user.onClick}"
-                android:text="change userInfo"
-                />
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/change_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:onClick="@{event.onClick}"
+            android:text="change userInfo"
+            />
     </LinearLayout>
+
 </layout>

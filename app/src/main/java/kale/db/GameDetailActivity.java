@@ -1,41 +1,44 @@
 package kale.db;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import in.workarounds.bundler.Bundler;
+import in.workarounds.bundler.annotations.Arg;
+import in.workarounds.bundler.annotations.RequireBundler;
 import kale.db.databinding.GameDetailBinding;
 import kale.dbinding.DBinding;
+import kale.dbinding.util.SerializableViewModel;
+import vm.EventViewModel;
 import vm.GameViewModel;
 
 /**
  * @author Kale
  * @date 2016/1/27
  */
+@RequireBundler
 public class GameDetailActivity extends AppCompatActivity {
 
-    private static final String KEY = "view_data";
+    private EventViewModel mEvent = new EventViewModel();
 
+    @Arg
+    public SerializableViewModel<GameViewModel> mSerializableGameVm;
+    
     private GameViewModel mGameVm;
 
     private Observable.OnPropertyChangedCallback mCallback;
 
-    public static Intent withIntent(Activity activity, GameViewModel viewModel) {
-        return new Intent(activity, GameDetailActivity.class)
-                .putExtra(KEY, viewModel.toSerializable());
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGameVm = GameViewModel.toViewModel(getIntent().getSerializableExtra(KEY));
-
-        final GameDetailBinding b = DBinding.bindViewModel(this, R.layout.game_detail, mGameVm);
+        Bundler.inject(this);
+        mGameVm = mSerializableGameVm.toViewModel();
+        
+        final GameDetailBinding b = DBinding.bindViewModel(this, R.layout.game_detail, mEvent, mGameVm);
         addCallback(b);
 
-        mGameVm.setOnClick(v -> {
+        mEvent.setOnClick(v -> {
             if (v == b.likeBtn) {
                 mGameVm.setIsLikeText(GameItem.LIKED);
             }
