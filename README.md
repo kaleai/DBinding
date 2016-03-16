@@ -37,13 +37,10 @@ repositories {
 	}
 }
 ```
-2.在用到的项目中添加依赖  
+2.在项目中添加依赖  
 
-```
-dependencies {
-	compile 'com.github.tianzhijiexian:DBinding:未做好'
-}    
-```  
+compile 'com.github.tianzhijiexian:DBinding:[Latest release](https://github.com/tianzhijiexian/DBinding/releases)''
+ 
 
 ##四、已知问题
 ①因为增加了一个viewModel，所以可能会有一点点重。但是相比起databinding推荐的xml中写java逻辑的写法来看，此框架的复杂度要低很多。  

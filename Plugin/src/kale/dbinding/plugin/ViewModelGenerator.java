@@ -22,7 +22,7 @@ import kale.dbinding.GenViewModel;
 /**
  * @author Kale
  * @date 2015/12/28
- * 
+ *
  * 生成viewModel的插件
  */
 public class ViewModelGenerator extends AnAction {
@@ -33,14 +33,13 @@ public class ViewModelGenerator extends AnAction {
 
         String path = getPath(e);
         if (path == null) {
+            showHint("Please make sure the current file is in android module", true, e);
             return;
         }
-        
+
         path = path.substring(0, path.indexOf("src"));
 
         GenViewModel.generateViewModel(path);
-        
-        StatusBar statusBar = WindowManager.getInstance().getStatusBar(DataKeys.PROJECT.getData(e.getDataContext()));
 
         long ms = System.currentTimeMillis() - start;
         String timeStr = ms + "ms";
@@ -48,9 +47,13 @@ public class ViewModelGenerator extends AnAction {
             timeStr = ms / 1000 + "s " + ms % 1000 + "ms";
         }
 
+        showHint("Generate completed successfully in " + timeStr, false, e);
+    }
+
+    private void showHint(String msg, boolean isError, AnActionEvent e) {
+        StatusBar statusBar = WindowManager.getInstance().getStatusBar(DataKeys.PROJECT.getData(e.getDataContext()));
         JBPopupFactory.getInstance()
-                .createHtmlTextBalloonBuilder("<html>Generate completed successfully in " + timeStr + "</html>", MessageType.INFO, null)
-                .setFadeoutTime(3000)
+                .createHtmlTextBalloonBuilder("<html>" + msg + "</html>", isError ? MessageType.ERROR : MessageType.INFO, null)
                 .createBalloon()
                 .show(RelativePoint.getCenterOf(statusBar.getComponent()), Balloon.Position.above);
     }

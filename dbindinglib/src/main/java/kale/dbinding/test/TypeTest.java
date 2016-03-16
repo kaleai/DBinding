@@ -1,4 +1,4 @@
-package kale.dbindingtest;
+package kale.dbinding.test;
 
 import android.databinding.adapters.AbsListViewBindingAdapter;
 import android.databinding.adapters.AbsSeekBarBindingAdapter;
@@ -43,7 +43,6 @@ import java.lang.reflect.Modifier;
 import kale.dbinding.adapters.EditTextAttrAdapter;
 import kale.dbinding.adapters.ImageViewAttrAdapter;
 import kale.dbinding.adapters.TextViewAttrAdapter;
-import kale.dbinding.parser.TypeFinder;
 
 /**
  * @author Kale
@@ -96,7 +95,6 @@ public class TypeTest {
                 ViewStubBindingAdapter.class,
                 ZoomControlsBindingAdapter.class,
 
-                ________下面是自定义的适配器________.class,
                 // custom adapter
                 EditTextAttrAdapter.class,
                 ImageViewAttrAdapter.class,
@@ -120,14 +118,14 @@ public class TypeTest {
                         && paramNum == 2
                         && View.class.isAssignableFrom(firstType)) {
 
-                    String attrName = kale.dbinding.util.LetterUtil.getLowerLetter(method.getName().substring(3));
+                   /* String attrName = LetterUtil.getLowerLetter(method.getName().substring(3));
                     String got = TypeFinder.findTypeByAttrName(attrName);
                     String expected = method.getParameterTypes()[1].getCanonicalName();
 
                     if (!got.equals(expected)) {
-                        /**
+                        *//**
                          *如果{@link TypeFinder}已经处理过,这里就不做判定，否属于没有做处理的情况。
-                         */
+                         *//*
                         if (got.equals(Object.class.getCanonicalName())) {
                             System.err.println("匹配失败的方法：" + method.getName()
                                     + "，期望的是：" + expected + "，实际却是：" + got);
@@ -136,7 +134,7 @@ public class TypeTest {
                         }
                     } else {
                         System.out.println("匹配成功：" + got);
-                    }
+                    }*/
                 } else {
                     System.out.println("忽略的方法：" + method.getName());
                 }

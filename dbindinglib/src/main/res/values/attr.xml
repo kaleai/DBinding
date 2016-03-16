@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="bind">
         <attr name="smartText" format="string"/>
+        <attr name="rcvAdapter" format="reference" />
     </declare-styleable>
     
 </resources>

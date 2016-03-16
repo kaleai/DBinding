@@ -17,7 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
@@ -43,7 +43,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':dbindinglib')
-    
+
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile "in.workarounds.bundler:bundler-annotations:$bundlerVersion"
     apt "in.workarounds.bundler:bundler-compiler:$bundlerVersion"
