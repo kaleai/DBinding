@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keepclasseswithmembers class * extends android.databinding.ViewDataBinding{  
+    <methods>;  
+}

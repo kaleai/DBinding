@@ -48,6 +48,7 @@ import kale.dbinding.adapters.TextViewAttrAdapter;
  * @author Kale
  * @date 2016/1/20
  */
+@Deprecated
 public class TypeTest {
 
     /**

@@ -26,7 +26,7 @@ DBinding是一个基于DataBinding的巧妙、灵活的mvvm框架。解决了两
 ![](./pic/01.jpg)
 ![](./pic/02.jpg)
 
-##三、添加依赖（暂未完成）
+##三、配置lib
 
 1.在项目外层的build.gradle中添加JitPack仓库   
 
@@ -39,17 +39,18 @@ repositories {
 ```
 2.在项目中添加依赖  
 
-compile 'com.github.tianzhijiexian:DBinding:[Latest release](https://github.com/tianzhijiexian/DBinding/releases)''
- 
+> compile 'com.github.tianzhijiexian:DBinding:[Latest release](https://github.com/tianzhijiexian/DBinding/releases)''
 
-##四、已知问题
-①因为增加了一个viewModel，所以可能会有一点点重。但是相比起databinding推荐的xml中写java逻辑的写法来看，此框架的复杂度要低很多。  
+3.添加混淆配置
 
-②目前对于android中默认属性的支持还不是很完全，但大家可以共同完善它。  
-完善的方式：  
-1. 通过自定义属性对的方式对插件进行扩展  
-2. 对pluginLib这个module中的kale.dbinding.parser.TypeFinder中添加case代码，并提交pr   
-3. 对dbindingTest这个module中TypeTest进行测试，看是否有未支持的属性  
+```
+-keepclasseswithmembers class * extends android.databinding.ViewDataBinding{  
+    <methods>;  
+}
+```
+
+##四、插件下载
+https://github.com/tianzhijiexian/DBinding/blob/master/Plugin/DBindPlugin.zip
 
 ##五、使用方式
 1.编写Layout文件：   
@@ -86,9 +87,20 @@ compile 'com.github.tianzhijiexian:DBinding:[Latest release](https://github.com/
     }
 
 ```    
+
 ##六、详尽文档  
 
 ###[DBinding权威使用指南(重要)](https://www.zybuluo.com/shark0017/note/256112)    
+
+
+##七、已知问题
+①因为增加了一个viewModel，所以可能会有一点点重。但是相比起databinding推荐的xml中写java逻辑的写法来看，此框架的复杂度要低很多。  
+
+②目前对于android中默认属性的支持还不是很完全，但大家可以共同完善它。  
+完善的方式：  
+1. 通过自定义属性对的方式对插件进行扩展  
+2. 对pluginLib这个module中的kale.dbinding.parser.TypeFinder中添加case代码，并提交pr   
+3. 对dbindingTest这个module中TypeTest进行测试，看是否有未支持的属性  
 
 
 ##开发者
