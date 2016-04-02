@@ -15,7 +15,9 @@ import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.ui.awt.RelativePoint;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.FileNotFoundException;
 
 import kale.dbinding.GenViewModel;
 
@@ -31,9 +33,11 @@ public class ViewModelGenerator extends AnAction {
     public void actionPerformed(AnActionEvent e) {
         long start = System.currentTimeMillis();
 
-        String path = getPath(e);
-        if (path == null) {
-            showHint("Please make sure the current file is in android module", true, e);
+        String path;
+        try {
+            path = getPath(e);
+        } catch (FileNotFoundException e1) {
+            showHint("Please smake sure the current file is in android module", true, e);
             return;
         }
 
@@ -58,25 +62,24 @@ public class ViewModelGenerator extends AnAction {
                 .show(RelativePoint.getCenterOf(statusBar.getComponent()), Balloon.Position.above);
     }
 
-    @Nullable
-    private String getPath(AnActionEvent e) {
-        FileDocumentManager fileDocManager = FileDocumentManager.getInstance();
+    @NotNull
+    private String getPath(AnActionEvent e) throws FileNotFoundException {
 
         final Project project = e.getProject();
         if (project == null) {
-            return null;
+            throw new FileNotFoundException("project is null");
         }
         final Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor(); // 得到当前的文件
         if (editor == null) {
-            return null;
+            throw new FileNotFoundException("editor is null");
         }
-        final VirtualFile vf = fileDocManager.getFile(editor.getDocument());
+        final VirtualFile vf = FileDocumentManager.getInstance().getFile(editor.getDocument());
         if (vf == null) {
-            return null;
+            throw new FileNotFoundException("vf is null");
         }
         String path = vf.getCanonicalPath();
         if (path == null) {
-            return null;
+            throw new FileNotFoundException("path is null");
         }
         return path;
     }

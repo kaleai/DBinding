@@ -1,4 +1,5 @@
 # DBinding   
+[![](https://jitpack.io/v/tianzhijiexian/DBinding.svg)](https://jitpack.io/#tianzhijiexian/DBinding)
 
 ![](./pic/logo.jpg)   
 ##简介  
@@ -50,7 +51,9 @@ repositories {
 ```
 
 ##四、插件下载
-https://github.com/tianzhijiexian/DBinding/blob/master/Plugin/DBindPlugin.zip
+https://github.com/tianzhijiexian/DBinding/blob/master/Plugin/DBindPlugin.zip   
+
+![](./pic/genVm.gif)  
 
 ##五、使用方式
 1.编写Layout文件：   
@@ -74,27 +77,25 @@ https://github.com/tianzhijiexian/DBinding/blob/master/Plugin/DBindPlugin.zip
 2.编写java代码：   
 
 **Activity:**  
-
 ```JAVA   
+private UserViewModel mUserVm = new UserViewModel();
 
-    private UserViewModel mUserVm = new UserViewModel();
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        DBinding.bindViewModel(this, R.layout.activity_main, mUserVm); // 将vm和layout进行绑定
-		mUserVm.setName("漩涡鸣人");  // textview中就会自动渲染出文字了
-    }
-
+    DBinding.bindViewModel(this, R.layout.activity_main, mUserVm); // 将vm和layout进行绑定
+mUserVm.setName("漩涡鸣人");  // textview中就会自动渲染出文字了
+}
 ```    
 
 ##六、详尽文档  
 
-###[DBinding权威使用指南(重要)](https://www.zybuluo.com/shark0017/note/256112)    
+###[DBinding权威使用指南(重要)](https://www.zybuluo.com/shark0017/note/256112)   
 
+![](./pic/doc.png)
 
 ##七、已知问题
-①因为增加了一个viewModel，所以可能会有一点点重。但是相比起databinding推荐的xml中写java逻辑的写法来看，此框架的复杂度要低很多。  
+①因为增加了一个viewModel，所以会有一点重。但是相比起databinding推荐的xml中写java逻辑的写法来看，此框架的复杂度要低很多。  
 
 ②目前对于android中默认属性的支持还不是很完全，但大家可以共同完善它。  
 完善的方式：  
@@ -112,7 +113,7 @@ Jack Tony: <developer_kale@foxmail.com>
 ## License
 
 ```  
-Copyright 2015 Jack Tony
+Copyright 2016 Jack Tony
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
