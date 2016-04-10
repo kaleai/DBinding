@@ -37,7 +37,7 @@ public class ViewModelGenerator extends AnAction {
         try {
             path = getPath(e);
         } catch (FileNotFoundException e1) {
-            showHint("Please smake sure the current file is in android module", true, e);
+            showHint("Please make sure the current file is in android module", true, e);
             return;
         }
 

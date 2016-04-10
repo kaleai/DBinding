@@ -8,20 +8,16 @@ import java.io.File;
  */
 public class Test {
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Just For Test
-    ///////////////////////////////////////////////////////////////////////////
-
     private static final String ROOT = System.getProperty("user.dir");
-    
+
     public static void main(String[] args) {
-        System.out.println("=========== start ===========");
+        System.out.print("===== start ");
         long start = System.currentTimeMillis();
         String moduleDir = ROOT + File.separator + "app" + File.separator;
 
         GenViewModel.generateViewModel(moduleDir);
 
-        System.out.println("========== end =========== " + (System.currentTimeMillis() - start));
+        System.out.println("===== end =====> Total time is: " + (System.currentTimeMillis() - start) + "ms");
     }
-    
+
 }

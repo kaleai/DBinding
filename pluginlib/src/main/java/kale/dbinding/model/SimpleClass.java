@@ -32,4 +32,5 @@ public class SimpleClass {
         this.packageName = fullName.substring(0, fullName.indexOf(simpleName) - 1); // com.kale.vm
         this.fullName = fullName; // com.kale.vm.ViewModel
     }
+    
 }

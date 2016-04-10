@@ -61,7 +61,9 @@ public class FileHelper {
             dirName = moduleDir + CLASS_SAVED_PATH + dirName;
             fileName = LetterUtil.getUpperLetter(fileName);
             File dir = new File(dirName);
-            dir.mkdirs();
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
             File file = new File(dirName, fileName + ".java");
             OutputStream output = new FileOutputStream(file);
             output.write(content.getBytes());
