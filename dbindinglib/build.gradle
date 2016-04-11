@@ -26,4 +26,9 @@ android {
 dependencies {
     provided 'com.android.support:support-annotations:23.1.1'
     provided 'com.android.support:recyclerview-v7:23.1.1'
+    
+    testCompile 'com.android.support:design:23.2.0'
+    testCompile 'junit:junit:4.12'
+    testCompile project(':pluginlib')
+    testCompile 'com.android.support:cardview-v7:23.3.0'
 }
