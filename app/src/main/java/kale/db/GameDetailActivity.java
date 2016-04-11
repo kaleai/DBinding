@@ -3,6 +3,7 @@ package kale.db;
 import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import in.workarounds.bundler.Bundler;
 import in.workarounds.bundler.annotations.Arg;
@@ -40,6 +41,7 @@ public class GameDetailActivity extends AppCompatActivity {
 
         mEvent.setOnClick(v -> {
             if (v == b.likeBtn) {
+                Toast.makeText(GameDetailActivity.this, "Thank you~", Toast.LENGTH_SHORT).show();
                 mGameVm.setIsLikeText(GameItem.LIKED);
             }
         });

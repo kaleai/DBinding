@@ -25,7 +25,11 @@ DBinding是一个基于DataBinding的巧妙、灵活的mvvm框架。解决了多
 ##二、示例  
 
 ![](./pic/01.jpg)
-![](./pic/02.jpg)
+![](./pic/02.jpg)  
+
+在线预览：
+
+[![](./pic/preview.png)](https://appetize.io/app/y5dkeh2hyjmh053n03gvcgybdw?device=nexus5&scale=75&orientation=portrait&osVersion=6.0)
 
 ##三、配置lib
 
@@ -58,7 +62,7 @@ dataBinding {
 
 https://github.com/tianzhijiexian/DBinding/raw/master/Plugin/DBindPlugin.zip   
 
-![](./pic/genVm.gif)   
+![](./pic/gen_vm.gif)   
 
 **注意：如果遇到生成不成功的情况，先手动保存当前的文件后再试。**  
 
@@ -109,7 +113,7 @@ protected void onCreate(Bundle savedInstanceState) {
 完善的方式：  
 1. 通过自定义属性对的方式对插件进行扩展  
 2. 对pluginLib这个module中的[TypeFinder](https://github.com/tianzhijiexian/DBinding/blob/master/pluginlib%2Fsrc%2Fmain%2Fjava%2Fkale%2Fdbinding%2Fparser%2FTypeFinder.java)中添加case代码，并提交pull request   
-//3. 对dbindingTest这个module中TypeTest进行测试，看是否有未支持的属性
+3. 利用[PluginTypeTest](https://github.com/tianzhijiexian/DBinding/blob/master/dbindinglib/src/test/java/kale/test/plugin/PluginTypeTest.java)进行测试，看是否成功
 
 ##开发者
 

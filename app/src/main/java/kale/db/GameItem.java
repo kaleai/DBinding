@@ -20,7 +20,7 @@ import vm.GameViewModel;
  */
 public class GameItem implements AdapterItem<NewsInfo> {
 
-    public static final String LIKED = "liked";
+    public static final String LIKED = "★ Liked";
 
     private GameItemBinding b;
 
@@ -46,8 +46,7 @@ public class GameItem implements AdapterItem<NewsInfo> {
     public void setViews() {
         notifyData(b);
         b.getRoot().setOnClickListener(v -> 
-                Bundler.gameDetailActivity(mGameVm.toSerializable())
-                        .start(mActivity));
+                Bundler.gameDetailActivity(mGameVm.toSerializable()).start(mActivity));
     }
 
     /**
