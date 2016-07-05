@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
 
-import in.workarounds.bundler.Bundler;
 import kale.adapter.item.AdapterItem;
-import kale.adapter.item.BaseAdapterItem;
 import kale.db.databinding.GameItemBinding;
 import kale.db.model.NewsInfo;
 import kale.dbinding.DBinding;
@@ -18,9 +15,9 @@ import vm.GameViewModel;
  * @author Kale
  * @date 2016/1/6
  */
-public class GameItem implements AdapterItem<NewsInfo> {
+class GameItem implements AdapterItem<NewsInfo> {
 
-    public static final String LIKED = "★ Liked";
+    static final String LIKED = "★ Liked";
 
     private GameItemBinding b;
 
@@ -28,7 +25,7 @@ public class GameItem implements AdapterItem<NewsInfo> {
 
     private Activity mActivity;
 
-    public GameItem(Activity activity) {
+    GameItem(Activity activity) {
         mActivity = activity;
     }
 
@@ -45,8 +42,9 @@ public class GameItem implements AdapterItem<NewsInfo> {
     @Override
     public void setViews() {
         notifyData(b);
-        b.getRoot().setOnClickListener(v -> 
-                Bundler.gameDetailActivity(mGameVm.toSerializable()).start(mActivity));
+        b.getRoot().setOnClickListener(v ->
+                GameDetailActivityDispatcher.create().setGameVm(mGameVm.toSerializable()).start(mActivity)
+        );
     }
 
     /**
@@ -56,11 +54,12 @@ public class GameItem implements AdapterItem<NewsInfo> {
      * @param b 为什么不是单一监听器，而是观察者模式？
      *          因为多个页面会有对同一个数据的监听操作，如果是单一的那么就没办法实现这个功能。
      */
-    public void notifyData(final GameItemBinding b) {
+    private void notifyData(final GameItemBinding b) {
         mGameVm.addOnValueChangedCallback(id -> {
             switch (id) {
                 case BR.title:
-                    b.titleTv.setVisibility(!TextUtils.isEmpty(mGameVm.getTitle()) ? View.VISIBLE : View.GONE);
+                    boolean isEmpty = TextUtils.isEmpty(mGameVm.getTitle());
+                    b.titleTv.setVisibility(!isEmpty ? View.VISIBLE : View.GONE);
                     break;
                 case BR.isLikeText:
                     final int color = mGameVm.getIsLikeText().equals(LIKED) ? R.color.yellow : R.color.gray;

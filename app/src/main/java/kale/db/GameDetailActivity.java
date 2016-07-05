@@ -1,50 +1,53 @@
 package kale.db;
 
+import com.lzh.courier.annoapi.Field;
+import com.lzh.courier.annoapi.Params;
+
 import android.databinding.Observable;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import in.workarounds.bundler.Bundler;
-import in.workarounds.bundler.annotations.Arg;
-import in.workarounds.bundler.annotations.RequireBundler;
-import kale.db.databinding.GameDetailBinding;
+import kale.db.base.BaseActivity;
+import kale.db.databinding.GameDetailActivityBinding;
 import kale.dbinding.DBinding;
 import kale.dbinding.util.SerializableViewModel;
-import vm.EventViewModel;
 import vm.GameViewModel;
 
 /**
  * @author Kale
  * @date 2016/1/27
  */
-@RequireBundler
-public class GameDetailActivity extends AppCompatActivity {
+@Params(fields = {@Field(name = "gameVm", type = SerializableViewModel.class)})
+public class GameDetailActivity extends BaseActivity<GameDetailActivityBinding> {
 
-    private EventViewModel mEvent = new EventViewModel();
-
-    @Arg
-    public SerializableViewModel<GameViewModel> mSerializableGameVm;
-    
     private GameViewModel mGameVm;
 
     private Observable.OnPropertyChangedCallback mCallback;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundler.inject(this);
-        mGameVm = mSerializableGameVm.toViewModel();
-        
-        final GameDetailBinding b = DBinding.bindViewModel(this, R.layout.game_detail, mEvent, mGameVm);
-        addCallback(b);
+    protected int getLayoutResId() {
+        return R.layout.game_detail_activity;
+    }
 
-        mEvent.setOnClick(v -> {
+    @Override
+    protected void beforeSetViews() {
+        mGameVm = (GameViewModel) GameDetailActivityArgsData.getArguments(getIntent()).getGameVm().toViewModel();
+        DBinding.setVariables(b, viewEvents, mGameVm);
+    }
+
+    @Override
+    protected void setViews() {
+        addCallback(b);
+        viewEvents.setOnClick(v -> {
             if (v == b.likeBtn) {
                 Toast.makeText(GameDetailActivity.this, "Thank you~", Toast.LENGTH_SHORT).show();
                 mGameVm.setIsLikeText(GameItem.LIKED);
             }
         });
+    }
+
+    @Override
+    protected void doTransaction() {
+
     }
 
     /**
@@ -56,9 +59,9 @@ public class GameDetailActivity extends AppCompatActivity {
      * 如果这个viewModel仅仅是在一个页面中用，那么可以不用做remove回调的事情。但如果这个viewModel通过intent进行传递了。
      * 这就需要注意下要在页面中remove掉这个回调！
      */
-    private void addCallback(final GameDetailBinding b) {
+    private void addCallback(final GameDetailActivityBinding b) {
         mCallback = mGameVm.addOnValueChangedCallback(propertyId -> {
-            if (propertyId == BR._all || propertyId == BR.isLikeText) {
+            if (propertyId == BR._all || propertyId == kale.db.BR.isLikeText) {
                 // 因为这个属性要被notifyChange()所影响，所以监听了BR._all这个id
                 boolean isLiked = mGameVm.getIsLikeText().equals(GameItem.LIKED);
                 b.likeBtn.setTextColor(getResources().getColor(isLiked ? R.color.dark_gray : R.color.white));

@@ -1,23 +1,23 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion '24'
     android.enforceUniquePackageName = true
-    
-    
+
+
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 24
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
-    
+
     dataBinding {
         enabled = true
     }
@@ -25,10 +25,15 @@ android {
 
 dependencies {
     provided 'com.android.support:support-annotations:23.1.1'
-    provided 'com.android.support:recyclerview-v7:23.1.1'
+//    provided 'com.android.support:recyclerview-v7:24.0.0'
     
-    testCompile 'com.android.support:design:23.2.0'
-    testCompile 'junit:junit:4.12'
+    /*provided ('com.android.databinding:library:1.1'){
+        transitive = true
+        exclude group: 'com.android.support'
+    }*/
+
     testCompile project(':pluginlib')
-    testCompile 'com.android.support:cardview-v7:23.3.0'
+    testCompile 'com.android.support:design:24.0.0'
+    testCompile 'com.android.support:cardview-v7:24.0.0'
+    testCompile 'junit:junit:4.12'
 }

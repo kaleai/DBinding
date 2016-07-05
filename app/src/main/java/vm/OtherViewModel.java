@@ -1,5 +1,8 @@
-package vm; 
-import android.databinding.Bindable;
+package vm;
+
 import kale.dbinding.BaseViewModel;
-import com.android.databinding.library.baseAdapters.BR;
-public class OtherViewModel extends BaseViewModel<OtherViewModel> {}
+
+/** Generated code from DBinding. Do not modify! */
+public class OtherViewModel extends BaseViewModel<OtherViewModel> {
+
+}

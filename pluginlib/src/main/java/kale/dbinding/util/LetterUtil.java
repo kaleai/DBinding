@@ -11,6 +11,9 @@ public class LetterUtil {
      * abc -> Abc
      */
     public static String getUpperLetter(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
@@ -19,6 +22,9 @@ public class LetterUtil {
      * Abc -> abc
      */
     public static String getLowerLetter(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 

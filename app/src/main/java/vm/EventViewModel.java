@@ -1,7 +1,10 @@
-package vm; 
+package vm;
+
 import android.databinding.Bindable;
+
+import kale.db.BR;
 import kale.dbinding.BaseViewModel;
-import com.android.databinding.library.baseAdapters.BR;
+/** Generated code from DBinding. Do not modify! */
 public class EventViewModel extends BaseViewModel<EventViewModel> {
 
     private android.view.View.OnClickListener onClick;

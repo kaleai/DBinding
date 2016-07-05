@@ -29,8 +29,12 @@ public class SimpleClass {
         String[] fullNames = fullName.split("\\.");
 
         this.simpleName = fullNames[fullNames.length - 1]; // ViewModel
-        this.packageName = fullName.substring(0, fullName.indexOf(simpleName) - 1); // com.kale.vm
+        int i = fullName.indexOf(simpleName);
+        this.packageName = fullName.substring(0, i - 1); // com.kale.vm
+
         this.fullName = fullName; // com.kale.vm.ViewModel
     }
     
+    public static void main(String[] args) {
+    }
 }

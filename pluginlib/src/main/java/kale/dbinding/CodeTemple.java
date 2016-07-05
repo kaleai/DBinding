@@ -17,6 +17,7 @@ public class CodeTemple {
             + "import kale.dbinding.BaseViewModel;\n"
             + "import com.android.databinding.library.baseAdapters.BR;\n"
 
+            + "/** Generated code from DBinding. Do not modify! */\n"
             + "public class %s extends BaseViewModel<%s> {%s}";
 
     /**

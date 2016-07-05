@@ -58,7 +58,9 @@ public class ViewModelGenerator {
                             if (ignore != null && ignore.equals("true")) {
                                 continue;
                             }
-                            genClassObj(reader, classes);
+                            if (!genClassObj(reader, classes)) {
+                                continue;
+                            }
                         } else {
                             genClassFields(reader, classes);
                         }
@@ -77,17 +79,22 @@ public class ViewModelGenerator {
     /**
      * <variable name="user" type="org.kale.vm.UserViewModel"/>
      */
-    private void genClassObj(XMLStreamReader xmlReader, List<SimpleClass> classes) {
+    private boolean genClassObj(XMLStreamReader xmlReader, List<SimpleClass> classes) {
         final String fullClsName = xmlReader.getAttributeValue(null, "type").trim(); // org.kale.vm.UserViewModel
-        SimpleClass cls = mViewModelMap.get(fullClsName);
-        if (cls == null) {
-            cls = new SimpleClass(fullClsName);
-            mViewModelMap.put(fullClsName, cls);
-        }
-        cls.clsVarName = xmlReader.getAttributeValue(null, "name").trim();
+        if (fullClsName.isEmpty()) {
+            return false;
+        } else {
+            SimpleClass cls = mViewModelMap.get(fullClsName);
+            if (cls == null) {
+                cls = new SimpleClass(fullClsName);
+                mViewModelMap.put(fullClsName, cls);
+            }
+            cls.clsVarName = xmlReader.getAttributeValue(null, "name").trim();
 
-        if (!classes.contains(cls)) {
-            classes.add(cls);
+            if (!classes.contains(cls)) {
+                classes.add(cls);
+            }
+            return true;
         }
     }
 

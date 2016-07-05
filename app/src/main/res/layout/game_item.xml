@@ -14,24 +14,24 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <ImageView
             android:id="@+id/pic_iv"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:scaleType="fitStart"
             android:layout_gravity="center_vertical"
+            android:scaleType="fitStart"
             android:src="@{game.icon , default = @drawable/hit_man_icon}"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="120dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="120dp"
+            android:orientation="vertical"
             >
 
             <TextView

@@ -4,13 +4,8 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-configurations {
-    provided
-    compile.extendsFrom provided
-}
 
 dependencies {
     // 如果引入了android包，插件会自动剔除它的，所以对于android中的类，我专门在android这个包中写了空类。
-    //provided 'com.google.android:android:2.1.2'
-    //provided 'com.google.android:support-v4:r7'
+    testCompile 'junit:junit:4.12'
 }

@@ -40,7 +40,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="@{user.name , default = Speed}"
+            android:text="@{user.name , default = Speed01}"
             android:textColor="@color/white"
             android:textSize="30sp"
             />
