@@ -50,6 +50,10 @@ public class ViewModelStorage {
     public
     @Nullable
     BaseViewModel removeViewModel(int key) {
-        return mDataList.remove(key);
+        if (mDataList.size() == 0) {
+            return null;
+        } else {
+            return mDataList.remove(key);
+        } 
     }
 }

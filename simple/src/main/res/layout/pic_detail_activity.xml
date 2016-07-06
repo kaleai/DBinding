@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="event"
+            type="vm.ViewEvent"
+            />
+
+        <variable
+            name="picVm"
+            type="vm.PicVm"
+            />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:url="@{picVm.picUrl}"
+            />
+
+        <Button
+            android:id="@+id/like_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:textColor="@color/colorAccent"
+            android:onClick="@{event.onClick}"
+            android:text="@{picVm.isLikeText , default = like}"
+            />
+
+    </FrameLayout>
+</layout>

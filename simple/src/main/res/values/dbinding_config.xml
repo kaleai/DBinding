@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 
+        For original view.
+        Example: android:text="name"
+    -->
+
+    <string name="text">java.lang.CharSequence</string>
+
+    <!-- 
+        For Custom view. 
+        Example: app:customAttr="name"
+    -->
+
+    <string name="customAttr">java.lang.CharSequence</string>
+</resources>
