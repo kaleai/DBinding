@@ -81,7 +81,7 @@ public class ViewModelGenerator {
      */
     private boolean genClassObj(XMLStreamReader xmlReader, List<SimpleClass> classes) {
         final String fullClsName = xmlReader.getAttributeValue(null, "type").trim(); // org.kale.vm.UserViewModel
-        if (fullClsName.isEmpty()) {
+        if (fullClsName.isEmpty() || !fullClsName.contains(".")) {
             return false;
         } else {
             SimpleClass cls = mViewModelMap.get(fullClsName);
