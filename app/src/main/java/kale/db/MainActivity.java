@@ -21,13 +21,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void beforeSetViews() {
-        mUserVm = new UserViewModel() {
-            @Override
-            public void setName(CharSequence name) {
-                // 对于复杂的ui需求，可以重载对应的set方法，不应该重载get方法
-                super.setName("$" + name);
-            }
-        };
+        mUserVm = new UserViewModel();
 
         DBinding.setVariables(b, mUserVm, viewEvents); // 不要求放入的顺序
         presenter = new GamePresenter(mUserVm);

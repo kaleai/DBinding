@@ -1,18 +1,9 @@
-package vm;
-
+package vm; 
 import android.databinding.Bindable;
-
-import kale.db.BR;
 import kale.dbinding.BaseViewModel;
+import com.android.databinding.library.baseAdapters.BR;
 /** Generated code from DBinding. Do not modify! */
 public class UserViewModel extends BaseViewModel<UserViewModel> {
-
-    private android.support.v7.widget.RecyclerView.Adapter adapter;
-    public void setAdapter(android.support.v7.widget.RecyclerView.Adapter adapter) {
-        this.adapter = adapter;
-        notifyPropertyChanged(BR.adapter);
-    }
-    @Bindable public android.support.v7.widget.RecyclerView.Adapter getAdapter() {return this.adapter;}
 
     private android.graphics.Bitmap pic;
     public void setPic(android.graphics.Bitmap pic) {

@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="@{user.name , default = Speed}"
+            android:text="@={user.name , default = Speed}"
             android:textSize="20sp"
             />
 
@@ -53,6 +53,7 @@
             android:onClick="@{event.onClick}"
             android:text="change userInfo"
             />
+        
     </LinearLayout>
 
 </layout>
