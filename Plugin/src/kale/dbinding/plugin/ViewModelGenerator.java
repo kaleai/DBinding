@@ -51,7 +51,7 @@ public class ViewModelGenerator extends AnAction {
             timeStr = ms / 1000 + "s " + ms % 1000 + "ms";
         }
 
-        showHint("Generate completed successfully in " + timeStr, false, e);
+        showHint("Convert completed in " + timeStr, false, e);
     }
 
     private void showHint(String msg, boolean isError, AnActionEvent e) {

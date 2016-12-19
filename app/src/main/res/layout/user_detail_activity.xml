@@ -1,5 +1,4 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="kale.db.UserDetailActivity"
     >
@@ -12,8 +11,8 @@
             />
         
         <variable
-            name="user"
-            type="vm.UserViewModel"
+            name="data"
+            type="vm.CommonViewModel"
             />
 
     </data>
@@ -30,7 +29,7 @@
             android:layout_height="200dp"
             android:onClick="@{event.onClick}"
             android:scaleType="centerInside"
-            android:src="@{user.pic}"
+            android:src="@{data.pic}"
             tools:src="@drawable/speed_icon"
             />
 
@@ -40,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="@={user.name , default = Speed}"
+            android:text="@={data.name , default = Speed}"
             android:textSize="20sp"
             />
 

@@ -9,8 +9,8 @@
             type="vm.EventViewModel"
             />
         <variable
-            name="game"
-            type="vm.GameViewModel"
+            name="data"
+            type="vm.CommonViewModel"
             />
         
     </data>
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@{game.pic , default=@drawable/hit_man}"
+            android:src="@{data.pic , default=@drawable/hit_man}"
             />
 
         <LinearLayout
@@ -43,10 +43,10 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:drawableLeft="@{game.icon , default=@drawable/hit_man_icon}"
+                android:drawableLeft="@{data.icon , default=@drawable/hit_man_icon}"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
-                android:text="@{game.title}"
+                android:text="@{data.title}"
                 android:textColor="#171717"
                 android:textSize="30sp"
                 tools:text="hit man"
@@ -60,7 +60,7 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="#000000"
                 android:textColor="@color/white"
-                android:text="@{game.isLikeText , default = like}"
+                android:text="@{data.isLikeText , default = like}"
                 android:onClick="@{event.onClick}"
                 />
 

@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.0'
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "kale.dbinding"
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -37,10 +36,10 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':dbindinglib')
 
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
 
-    compile 'org.lzh.compiler.courier:courier-api:0.3'
-    apt 'org.lzh.compiler.courier:courier-compiler:0.3'
+    annotationProcessor "org.lzh.compiler.parceler:parceler-compiler:0.6"
+    compile "org.lzh.compiler.parceler:parceler-api:0.6"
 }

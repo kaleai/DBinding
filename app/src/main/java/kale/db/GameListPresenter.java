@@ -12,20 +12,20 @@ import kale.adapter.item.AdapterItem;
 import kale.db.model.NewsInfo;
 import kale.db.network.NetworkService;
 import kale.dbinding.util.ObservableArrayList;
-import vm.UserViewModel;
+import kale.viewmodel.HeaderLayoutVm;
 
 /**
  * @author Kale
  * @date 2015/12/24
  */
-class GamePresenter {
-
-    private final UserViewModel mUserVm;
+class GameListPresenter {
 
     private final ObservableArrayList<NewsInfo> mList; // 界面的数据对象
 
-    GamePresenter(UserViewModel userVm) {
-        mUserVm = userVm;
+    private HeaderLayoutVm vm;
+
+    GameListPresenter(HeaderLayoutVm vm) {
+        this.vm = vm;
         mList = new ObservableArrayList<>();
     }
 
@@ -33,8 +33,8 @@ class GamePresenter {
      * 这个当然可以放在构造方法中进行，我这里为了说明view层调用p的方法，强制加入了一个回调。
      */
     boolean init(final Activity activity) {
-        mUserVm.setPic(BitmapFactory.decodeResource(activity.getResources(), R.drawable.speed_icon));
-        mUserVm.setName("Need for Speed");
+        vm.setPic(BitmapFactory.decodeResource(activity.getResources(), R.drawable.speed_icon));
+        vm.setName("Need for Speed");
         return true;
     }
 
@@ -44,14 +44,13 @@ class GamePresenter {
         mList.addAll(0, data); // don't need to call notifyDataSetChanged()
     }
 
-    RecyclerView.Adapter getAdapter(Activity activity) {
+    RecyclerView.Adapter getAdapter() {
         return new CommonRcvAdapter<NewsInfo>(mList) {
             @NonNull
             @Override
             public AdapterItem<NewsInfo> createItem(Object o) {
-                return new GameItem(activity);
+                return new GameItem();
             }
-
         };
     }
 

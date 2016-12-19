@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-            name="game"
-            type="vm.GameViewModel"
+            name="data"
+            type="vm.CommonViewModel"
             />
     </data>
 
@@ -23,7 +24,7 @@
             android:layout_height="110dp"
             android:layout_gravity="center_vertical"
             android:scaleType="fitStart"
-            android:src="@{game.icon , default = @drawable/hit_man_icon}"
+            android:src="@{data.icon , default = @drawable/hit_man_icon}"
             />
 
         <LinearLayout
@@ -41,9 +42,10 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{game.title}"
+                android:text="@{data.title}"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:visibility="@{data.title != null ? View.VISIBLE : View.GONE}"
                 tools:text="title"
                 />
 
@@ -55,7 +57,7 @@
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginTop="10dp"
                 android:maxLines="2"
-                android:text="@{game.isLikeText}"
+                android:text="@{data.isLikeText}"
                 android:textColor="@color/gray"
                 tools:text="isLikeText"
                 />

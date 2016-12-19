@@ -12,13 +12,13 @@
             />
 
         <variable
-            name="user"
-            type="vm.UserViewModel"
+            name="other"
+            type="vm.OtherViewModel"
             />
 
         <variable
-            name="other"
-            type="vm.OtherViewModel"
+            name="data"
+            type="vm.CommonViewModel"
             />
 
         <variable
@@ -33,14 +33,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="kale.db.MainActivity"
+        tools:context="kale.db.GameListActivity"
         >
 
         <include
             android:id="@+id/userInfo_include"
             layout="@layout/header_layout"
             app:event="@{event}"
-            app:user="@{user}"
+            app:data="@{data}"
             />
 
         <android.support.v7.widget.RecyclerView

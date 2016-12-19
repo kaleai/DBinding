@@ -10,8 +10,8 @@
             />
         
         <variable
-            name="user"
-            type="vm.UserViewModel"
+            name="data"
+            type="vm.CommonViewModel"
             />
     </data>
 
@@ -28,7 +28,7 @@
             android:layout_gravity="bottom"
             android:layout_margin="10dp"
             android:scaleType="fitXY"
-            android:src="@{user.pic , default= @drawable/speed_icon}"
+            android:src="@{data.pic , default= @drawable/speed_icon}"
             android:onClick="@{event.onClick}"
             />
         
@@ -40,7 +40,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="@{user.name , default = Speed01}"
+            android:text="@{data.name , default = Speed01}"
             android:textColor="@color/white"
             android:textSize="30sp"
             />
