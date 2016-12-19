@@ -1,9 +1,12 @@
 package kale.dbinding.adapters;
 
 import android.databinding.BindingAdapter;
+import android.databinding.adapters.TextViewBindingAdapter;
 import android.graphics.Bitmap;
 import android.widget.TextView;
 
+import kale.dbinding.ObservableBitmap;
+import kale.dbinding.ObservableString;
 import kale.dbinding.util.BitmapUtil;
 
 /**
@@ -30,11 +33,21 @@ public class TextViewAttrAdapter{
         view.setCompoundDrawablesWithIntrinsicBounds(
                 BitmapUtil.bitmap2Drawable(view.getResources(), bitmap), null, null, null);
     }
+
+    @BindingAdapter("android:drawableLeft")
+    public static void setDrawableLeft(TextView view, ObservableBitmap bitmap) {
+        setDrawableLeft(view, bitmap.get());
+    }
     
     @BindingAdapter("android:drawableRight")
     public static void setDrawableRight(TextView view, Bitmap bitmap) {
         view.setCompoundDrawablesWithIntrinsicBounds(null, null,
                 BitmapUtil.bitmap2Drawable(view.getResources(), bitmap), null);
+    }
+
+    @BindingAdapter("android:text")
+    public static void setText(TextView view, ObservableString text) {
+        TextViewBindingAdapter.setText(view, text.get());
     }
 
    /* *//**

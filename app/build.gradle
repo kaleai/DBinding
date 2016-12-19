@@ -32,6 +32,10 @@ android {
 
 }
 
+tasks.whenTaskAdded { task ->
+    println 'task name: ' + task.name
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':dbindinglib')

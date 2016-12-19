@@ -3,14 +3,15 @@ package kale.db;
 import com.lzh.compiler.parceler.annotation.Arg;
 import com.lzh.compiler.parceler.annotation.Dispatcher;
 
+import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 import kale.db.base.BaseActivity;
 import kale.db.databinding.GameDetailActivityBinding;
-import kale.dbinding.DBinding;
+import kale.dbinding.ObservableBitmap;
+import kale.dbinding.ObservableString;
 import kale.dbinding.util.SerializableViewModel;
-import kale.viewmodel.GameDetailActivityVm;
-import vm.CommonViewModel;
+import vm.GameItemVm;
 
 /**
  * @author Kale
@@ -22,7 +23,16 @@ public class GameDetailActivity extends BaseActivity<GameDetailActivityBinding> 
     @Arg
     SerializableViewModel serializableCommonVm;
 
-    private GameDetailActivityVm vm;
+    @Arg
+    ObservableString title;
+
+    @Arg
+    int picResId;
+
+    GameItemVm mGameItemVm;
+
+    //    @Arg
+    ObservableBitmap icon;
 
     @Override
     protected int getLayoutResId() {
@@ -31,26 +41,31 @@ public class GameDetailActivity extends BaseActivity<GameDetailActivityBinding> 
 
     @Override
     protected void beforeSetViews() {
-        commonVm = (CommonViewModel) serializableCommonVm.toViewModel();
-        DBinding.setVariables(b, viewEvents, commonVm);
-        vm = new GameDetailActivityVm(commonVm);
+        mGameItemVm = (GameItemVm) serializableCommonVm.toViewModel();
+        
+        b.setTitle(title);
+        b.setVm(mGameItemVm);
+//        b.setIcon(icon);
+        b.setEvent(viewEvents);
+        b.setVm(mGameItemVm);
     }
 
     @Override
     protected void setViews() {
         changeText();
+        b.picIv.setImageBitmap(BitmapFactory.decodeResource(getResources(), picResId));
         
         viewEvents.setOnClick(v -> {
             if (v == b.likeBtn) {
                 Toast.makeText(GameDetailActivity.this, "Thank you~", Toast.LENGTH_SHORT).show();
-                vm.setIsLikeText(GameItem.LIKED);
+                mGameItemVm.setIsLikedText(GameItem.LIKED);
                 changeText();
             }
         });
     }
 
     private void changeText() {
-        boolean isLiked = vm.getIsLikeText().equals(GameItem.LIKED);
+        boolean isLiked = mGameItemVm.getIsLikedText().equals(GameItem.LIKED);
         b.likeBtn.setTextColor(getResources().getColor(isLiked ? R.color.dark_gray : R.color.white));
         b.likeBtn.setEnabled(!isLiked);
     }

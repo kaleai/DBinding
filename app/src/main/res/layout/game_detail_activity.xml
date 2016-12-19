@@ -8,11 +8,22 @@
             name="event"
             type="vm.EventViewModel"
             />
+
         <variable
-            name="data"
-            type="vm.CommonViewModel"
+            name="title"
+            type="kale.dbinding.ObservableString"
             />
-        
+
+        <variable
+            name="vm"
+            type="vm.GameItemVm"
+            />
+
+        <variable
+            name="icon"
+            type="kale.dbinding.ObservableBitmap"
+            />
+
     </data>
 
     <FrameLayout
@@ -23,10 +34,10 @@
         >
 
         <ImageView
+            android:id="@+id/pic_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@{data.pic , default=@drawable/hit_man}"
             />
 
         <LinearLayout
@@ -43,10 +54,9 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:drawableLeft="@{data.icon , default=@drawable/hit_man_icon}"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
-                android:text="@{data.title}"
+                android:text="@{title}"
                 android:textColor="#171717"
                 android:textSize="30sp"
                 tools:text="hit man"
@@ -60,7 +70,7 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="#000000"
                 android:textColor="@color/white"
-                android:text="@{data.isLikeText , default = like}"
+                android:text="@{vm.isLikedText , default = like}"
                 android:onClick="@{event.onClick}"
                 />
 

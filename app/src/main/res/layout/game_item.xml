@@ -8,9 +8,20 @@
         <import type="android.view.View" />
 
         <variable
-            name="data"
-            type="vm.CommonViewModel"
+            name="title"
+            type="kale.dbinding.ObservableString"
             />
+
+        <variable
+            name="vm"
+            type="vm.GameItemVm"
+            />
+
+        <variable
+            name="icon"
+            type="kale.dbinding.ObservableBitmap"
+            />
+
     </data>
 
     <FrameLayout
@@ -24,7 +35,7 @@
             android:layout_height="110dp"
             android:layout_gravity="center_vertical"
             android:scaleType="fitStart"
-            android:src="@{data.icon , default = @drawable/hit_man_icon}"
+            android:src="@{icon , default = @drawable/hit_man_icon}"
             />
 
         <LinearLayout
@@ -42,10 +53,10 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{data.title}"
+                android:text="@{title}"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:visibility="@{data.title != null ? View.VISIBLE : View.GONE}"
+                android:visibility="@{title != null ? View.VISIBLE : View.GONE}"
                 tools:text="title"
                 />
 
@@ -57,9 +68,9 @@
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginTop="10dp"
                 android:maxLines="2"
-                android:text="@{data.isLikeText}"
+                android:text="@{vm.isLikedText}"
                 android:textColor="@color/gray"
-                tools:text="isLikeText"
+                tools:text="isLikedText"
                 />
 
         </LinearLayout>
