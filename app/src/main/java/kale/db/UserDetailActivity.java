@@ -1,6 +1,8 @@
 package kale.db;
 
 import android.graphics.BitmapFactory;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
 import com.lzh.compiler.parceler.annotation.Arg;
@@ -38,6 +40,23 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivityBinding> 
         b.setEvent(viewEvents);
         b.setPic(pic);
         b.setName(name);
+
+        b.nameTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                name.set(editable.toString());
+            }
+        });
         
         viewEvents.setOnClick(v -> {
             if (v == b.changeBtn) {
