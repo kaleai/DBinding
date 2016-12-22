@@ -1,18 +1,19 @@
 package kale.db;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.List;
-
 import kale.adapter.CommonRcvAdapter;
 import kale.adapter.item.AdapterItem;
 import kale.db.model.NewsInfo;
 import kale.db.network.NetworkService;
-import kale.dbinding.util.ObservableArrayList;
-import kale.viewmodel.HeaderLayoutVm;
+import kale.dbinding.data.ObservableBitmap;
+import kale.dbinding.data.ObservableCharSequence;
+import kale.dbinding.data.ObservableArrayList;
 
 /**
  * @author Kale
@@ -22,19 +23,17 @@ class GameListPresenter {
 
     private final ObservableArrayList<NewsInfo> mList; // 界面的数据对象
 
-    private HeaderLayoutVm vm;
-
-    GameListPresenter(HeaderLayoutVm vm) {
-        this.vm = vm;
+    GameListPresenter() {
         mList = new ObservableArrayList<>();
     }
 
     /**
      * 这个当然可以放在构造方法中进行，我这里为了说明view层调用p的方法，强制加入了一个回调。
      */
-    boolean init(final Activity activity) {
-        vm.setPic(BitmapFactory.decodeResource(activity.getResources(), R.drawable.speed_icon));
-        vm.setName("Need for Speed");
+    boolean init(final Activity activity, ObservableCharSequence name, ObservableBitmap bmp) {
+        name.set("Need for Speed");
+        // 一般图片加载都是用url，这里为了简单用了bitmap
+        bmp.set(BitmapFactory.decodeResource(activity.getResources(), R.drawable.speed_icon));
         return true;
     }
 

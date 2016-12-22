@@ -11,17 +11,17 @@
 
         <variable
             name="title"
-            type="kale.dbinding.ObservableString"
+            type="String"
             />
 
         <variable
-            name="vm"
-            type="vm.GameItemVm"
+            name="isLikedText"
+            type="kale.dbinding.data.ObservableCharSequence"
             />
 
         <variable
             name="icon"
-            type="kale.dbinding.ObservableBitmap"
+            type="kale.dbinding.data.ObservableBitmap"
             />
 
     </data>
@@ -49,12 +49,14 @@
             >
 
             <TextView
+                android:id="@+id/summary_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:drawablePadding="10dp"
+                android:drawableLeft="@{icon , default = @drawable/hit_man_icon}"
                 android:gravity="center_vertical"
                 android:text="@{title}"
                 android:textColor="#171717"
@@ -70,7 +72,7 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="#000000"
                 android:textColor="@color/white"
-                android:text="@{vm.isLikedText , default = like}"
+                android:text="@{isLikedText , default = like}"
                 android:onClick="@{event.onClick}"
                 />
 

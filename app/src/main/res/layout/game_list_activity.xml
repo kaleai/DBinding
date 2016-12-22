@@ -7,21 +7,6 @@
         <!-- 定义变量: var i -->
 
         <variable
-            name="event"
-            type="vm.EventViewModel"
-            />
-
-        <variable
-            name="other"
-            type="vm.OtherViewModel"
-            />
-
-        <variable
-            name="data"
-            type="vm.CommonViewModel"
-            />
-
-        <variable
             name="ignore"
             ignore="true"
             type="vm.ignored.IgnoreViewModel"
@@ -37,10 +22,8 @@
         >
 
         <include
-            android:id="@+id/userInfo_include"
+            android:id="@+id/header_layout"
             layout="@layout/header_layout"
-            app:event="@{event}"
-            app:data="@{data}"
             />
 
         <android.support.v7.widget.RecyclerView

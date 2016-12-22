@@ -5,14 +5,16 @@ import android.widget.Toast;
 
 import kale.db.base.BaseActivity;
 import kale.db.databinding.GameListActivityBinding;
+import kale.db.databinding.HeaderLayoutBinding;
 import kale.dbinding.DBinding;
-import kale.dbinding.ViewModelLayout;
-import kale.viewmodel.HeaderLayoutVm;
+import kale.dbinding.data.ObservableBitmap;
+import kale.dbinding.data.ObservableCharSequence;
 
-@ViewModelLayout({R.layout.game_list_activity, R.layout.header_layout})
 public class GameListActivity extends BaseActivity<GameListActivityBinding> {
 
-    private GameListPresenter presenter;
+    private GameListPresenter mPresenter;
+
+    private HeaderLayoutBinding mBind;
 
     @Override
     protected int getLayoutResId() {
@@ -21,29 +23,32 @@ public class GameListActivity extends BaseActivity<GameListActivityBinding> {
 
     @Override
     protected void beforeSetViews() {
-        DBinding.setVariables(b, commonVm, viewEvents); // 不要求放入的顺序
-        presenter = new GameListPresenter(new HeaderLayoutVm(commonVm));
+        mBind = DBinding.bind(findViewById(R.id.header_layout));
+        mBind.setEvent(viewEvents);
+        mBind.setName(ObservableCharSequence.create("default value"));
+        mBind.setPic(ObservableBitmap.create());
+
+        mPresenter = new GameListPresenter();
     }
 
     protected void setViews() {
-        // 设置监听器
         viewEvents.setOnClick(v -> {
-            if (v == b.userInfoInclude.headPicIv) {
+            if (v == b.headerLayout.headPicIv) {
                 new UserDetailActivityDispatcher()
-                        .setSerializableCommonVm(commonVm.toSerializable())
+                        .setName(mBind.getName())
+                        .setPic(mBind.getPic())
                         .start(getActivity());
             }
         });
 
-        // 设置view的属性
         b.mainRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        b.mainRv.setAdapter(presenter.getAdapter());
+        b.mainRv.setAdapter(mPresenter.getAdapter());
     }
 
     protected void doTransaction() {
-        if (presenter.init(this)) {
-            Toast.makeText(GameListActivity.this, "Init Complete", Toast.LENGTH_SHORT).show();
+        if (mPresenter.init(this, mBind.getName(), mBind.getPic())) {
+            Toast.makeText(GameListActivity.this, "Init Completed", Toast.LENGTH_SHORT).show();
         }
-        presenter.loadData();
+        mPresenter.loadData();
     }
 }

@@ -1,10 +1,8 @@
-package kale.dbinding.util;
-
-import android.support.annotation.Nullable;
+package kale.dbinding;
 
 import java.io.Serializable;
 
-import kale.dbinding.BaseViewModel;
+import android.support.annotation.Nullable;
 
 /**
  * @author Kale
@@ -20,6 +18,6 @@ public class SerializableViewModel<T extends BaseViewModel> implements Serializa
 
     public
     @Nullable T toViewModel() {
-        return (T) ViewModelStorage.getInstance().removeViewModel(index);
+        return (T) ViewModelStorage.getInstance().getViewModel(index);
     }
 }

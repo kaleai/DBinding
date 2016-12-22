@@ -18,7 +18,7 @@ public class NetworkService {
     public static List<NewsInfo> loadDataFromNetwork() {
         ArrayList<NewsInfo> list = new ArrayList<>();
         list.add(new NewsInfo("Hitman 47", "Like", new int[]{R.drawable.hit_man, R.drawable.hit_man_icon}));
-        list.add(new NewsInfo("Assassins Creed", "Like", new int[]{R.drawable.assassin_s_creed, R.drawable.assassin_s_creed_icon}));
+        list.add(new NewsInfo("Assassins Creed", "Like", new int[]{R.drawable.assassins_creed, R.drawable.assassins_creed_icon}));
         list.add(new NewsInfo("StarCraft Ⅱ", "Like", new int[]{R.drawable.star_craft,R.drawable.star_craft_icon}));
         list.add(new NewsInfo("Watch Dogs", "Like", new int[]{R.drawable.watch_dogs, R.drawable.watch_dogs_icon}));
         return list;

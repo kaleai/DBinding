@@ -1,7 +1,5 @@
 package kale.db.base;
 
-import com.lzh.compiler.parceler.Parceler;
-
 import android.app.Activity;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -9,8 +7,9 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.lzh.compiler.parceler.Parceler;
+
 import kale.dbinding.DBinding;
-import vm.CommonViewModel;
 import vm.EventViewModel;
 
 /**
@@ -19,8 +18,6 @@ import vm.EventViewModel;
  */
 
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
-
-    protected CommonViewModel commonVm = new CommonViewModel();
 
     protected EventViewModel viewEvents = new EventViewModel();
 

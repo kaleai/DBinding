@@ -9,10 +9,15 @@
             name="event"
             type="vm.EventViewModel"
             />
-        
+
         <variable
-            name="data"
-            type="vm.CommonViewModel"
+            name="pic"
+            type="kale.dbinding.data.ObservableBitmap"
+            />
+
+        <variable
+            name="name"
+            type="kale.dbinding.data.ObservableCharSequence"
             />
 
     </data>
@@ -29,7 +34,7 @@
             android:layout_height="200dp"
             android:onClick="@{event.onClick}"
             android:scaleType="centerInside"
-            android:src="@{data.pic}"
+            android:src="@{pic}"
             tools:src="@drawable/speed_icon"
             />
 
@@ -39,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="@={data.name , default = Speed}"
+            android:text="@{name , default = Speed}"
             android:textSize="20sp"
             />
 

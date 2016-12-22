@@ -1,13 +1,13 @@
-package kale.dbinding.util;
-
-import android.databinding.ListChangeRegistry;
-import android.databinding.ObservableList;
-import android.support.annotation.NonNull;
+package kale.dbinding.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import android.databinding.ListChangeRegistry;
+import android.databinding.ObservableList;
+import android.support.annotation.NonNull;
 
 /**
  * @author Kale

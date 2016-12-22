@@ -1,5 +1,10 @@
 package kale.dbinding.adapters;
 
+import android.databinding.BindingAdapter;
+import android.widget.EditText;
+
+import kale.dbinding.data.ObservableCharSequence;
+
 /**
  * @author Kale
  * @date 2016/1/15
@@ -8,5 +13,10 @@ package kale.dbinding.adapters;
  */
 public class EditTextAttrAdapter {
 
+    @BindingAdapter("android:text")
+    public static void setText(EditText view, ObservableCharSequence text) {
+        view.setText(text.get());
+//        TextViewBindingAdapter.setText(view, text.get());
+    }
 
 }

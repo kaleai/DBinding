@@ -1,19 +1,10 @@
 package kale.dbinding;
 
 import android.app.Activity;
-import android.databinding.BaseObservable;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.view.View;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
-
-import kale.dbinding.util.ReflectUtil;
 
 /**
  * @author Kale
@@ -21,7 +12,7 @@ import kale.dbinding.util.ReflectUtil;
  */
 public class DBinding {
 
-    public static void setVariables(@NonNull ViewDataBinding binding, @NonNull BaseObservable... vms) {
+    /*public static void setVariables(@NonNull ViewDataBinding binding, @NonNull BaseObservable... vms) {
         Map<Class<?>, Method> setMethods = new HashMap<>(); // methods cache
         Method[] methods = binding.getClass().getDeclaredMethods(); // public methods
         for (Method method : methods) {
@@ -42,16 +33,16 @@ public class DBinding {
             Method method = getMatchedMethod(setMethods, vd.getClass());
             ReflectUtil.invokeMethod(method, binding, vd);
         }
-    }
+    }*/
 
-    private @NonNull static Method getMatchedMethod(Map<Class<?>, Method> map, Class<?> clz) {
+   /* private @NonNull static Method getMatchedMethod(Map<Class<?>, Method> map, Class<?> clz) {
         for (Map.Entry<Class<?>, Method> entry : map.entrySet()) {
             if (entry.getKey().isAssignableFrom(clz)) {
                 return entry.getValue();
             }
         }
         throw new RuntimeException(clz.getSimpleName() + " was not found in binding");
-    }
+    }*/
     
     ///////////////////////////////////////////////////////////////////////////
     // Bind <=> View
@@ -70,7 +61,7 @@ public class DBinding {
     // Bind view and viewModel
     ///////////////////////////////////////////////////////////////////////////
 
-    public static <T extends ViewDataBinding> T bindViewModel(Activity activity, @LayoutRes int layoutId, @NonNull BaseObservable... vms) {
+  /*  public static <T extends ViewDataBinding> T bindViewModel(Activity activity, @LayoutRes int layoutId, @NonNull BaseObservable... vms) {
         T bind = bind(activity, layoutId);
         setVariables(bind, vms);
         return bind;
@@ -80,5 +71,5 @@ public class DBinding {
         T bind = bind(root);
         setVariables(bind, vms);
         return bind;
-    }
+    }*/
 }

@@ -3,9 +3,6 @@ package kale.dbinding;
 import android.databinding.BaseObservable;
 import android.databinding.Observable;
 
-import kale.dbinding.util.SerializableViewModel;
-import kale.dbinding.util.ViewModelStorage;
-
 /**
  * @author Kale
  * @date 2016/1/9

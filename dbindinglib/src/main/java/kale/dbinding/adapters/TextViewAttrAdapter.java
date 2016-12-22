@@ -5,8 +5,8 @@ import android.databinding.adapters.TextViewBindingAdapter;
 import android.graphics.Bitmap;
 import android.widget.TextView;
 
-import kale.dbinding.ObservableBitmap;
-import kale.dbinding.ObservableString;
+import kale.dbinding.data.ObservableBitmap;
+import kale.dbinding.data.ObservableCharSequence;
 import kale.dbinding.util.BitmapUtil;
 
 /**
@@ -46,7 +46,7 @@ public class TextViewAttrAdapter{
     }
 
     @BindingAdapter("android:text")
-    public static void setText(TextView view, ObservableString text) {
+    public static void setText(TextView view, ObservableCharSequence text) {
         TextViewBindingAdapter.setText(view, text.get());
     }
 

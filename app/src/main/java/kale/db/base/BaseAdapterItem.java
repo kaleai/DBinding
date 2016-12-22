@@ -10,13 +10,12 @@ import android.view.View;
 
 import kale.adapter.item.AdapterItem;
 import kale.dbinding.DBinding;
-import vm.CommonViewModel;
 
 /**
  * @author Kale
  * @date 2016/6/16
  */
-public abstract class BaseAdapterItem<Bind extends ViewDataBinding, Model> implements AdapterItem<Model> {
+public abstract class BaseAdapterItem<Bind extends ViewDataBinding, Data> implements AdapterItem<Data> {
 
     private View root;
 
@@ -24,9 +23,9 @@ public abstract class BaseAdapterItem<Bind extends ViewDataBinding, Model> imple
 
     protected Bind b;
 
-    protected CommonViewModel commonVm = new CommonViewModel();
-
     private Activity activity;
+
+    private Data mData;
 
     public BaseAdapterItem(Activity activity) {
         this.activity = activity;
@@ -49,8 +48,9 @@ public abstract class BaseAdapterItem<Bind extends ViewDataBinding, Model> imple
 
     @CallSuper
     @Override
-    public void handleData(Model t, int position) {
+    public void handleData(Data data, int position) {
         pos = position;
+        this.mData = data;
     }
 
     public View getRoot() {
@@ -95,5 +95,9 @@ public abstract class BaseAdapterItem<Bind extends ViewDataBinding, Model> imple
             }
         }
         return activity;
+    }
+
+    public Data getData() {
+        return mData;
     }
 }

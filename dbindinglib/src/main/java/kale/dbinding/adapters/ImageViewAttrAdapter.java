@@ -4,7 +4,7 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import kale.dbinding.ObservableBitmap;
+import kale.dbinding.data.ObservableBitmap;
 
 /**
  * @author Kale
